@@ -28,6 +28,19 @@ public class GlhBindingConstants {
 
     // List of all Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_THERMOSTAT = new ThingTypeUID(BINDING_ID, "thermostat");
+    public static final ThingTypeUID THING_TYPE_FACADE = new ThingTypeUID(BINDING_ID, "facade");
+
+    // Facade Channel ids
+    public static final String SUN_AZIMUTH = "sunAzimuth";
+    public static final String FACADE_BEARING = "bearing";
+    public static final String FACADE_FACING = "facingSun";
+    public static final String FACADE_SIDE = "side";
+
+    // event channelIds
+    public static final String EVENT_FACADE = "facadeEvent";
+    public static final String EVENT_ENTER_FACADE = "SUN_ENTER";
+    public static final String EVENT_LEAVE_FACADE = "SUN_LEAVE";
+    public static final String EVENT_FRONT_FACADE = "SUN_FRONT";
 
     // Thermostat Channel ids
     public static final String CHANNEL_TEMPERATURE = "Temperature";
