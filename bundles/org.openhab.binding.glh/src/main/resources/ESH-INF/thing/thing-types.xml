@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="glh"
+						  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						  xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+						  xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Thermostat Thing Type -->
+	<thing-type id="thermostat">
+		<label>Thermostat Thing</label>
+		<description>This thing represents a thermostat</description>
+
+        <channels>
+            <channel id="Temperature" typeId="temperature" />
+            <channel id="Humidex" typeId="humidex" />
+            <channel id="Humidity" typeId="humidity" />
+            <channel id="Sp_Temperature" typeId="setpointTemp" />
+            <channel id="SetpointMode" typeId="setpointMode" />
+            <channel id="ThermRelayCmd" typeId="ThermRelayCmd" />
+            <channel id="duration" typeId="duration" />
+        </channels>
+		
+		<config-description>
+            <parameter name="histeresis" type="decimal" required="true">
+                <label>Histeresis</label>
+                <default>0.5</default>
+            </parameter>
+            <parameter name="useHumidex" type="boolean">
+                <label>Use Humidex</label>
+                <description>Whether the thermostat will use temperature or humidex</description>
+                <default>false</default>
+            </parameter>
+        </config-description>
+	</thing-type>
+	
+    <!-- Channel Type -->
+    <channel-type id="temperature">
+        <item-type>Number:Temperature</item-type>
+        <label>Temperature</label>
+        <description>Current temperature</description>
+        <category>Temperature</category>
+        <state pattern="%.1f %unit%" />
+    </channel-type>
+
+    <channel-type id="humidity">
+        <item-type>Number:Dimensionless</item-type>
+        <label>Humidity</label>
+        <description>Current humidity</description>
+        <category>Humidity</category>
+        <state min="0" max="100" pattern="%.2f %unit%" />
+    </channel-type>
+       
+    <channel-type id="setpointTemp">
+        <item-type>Number:Temperature</item-type>
+        <label>Setpoint</label>
+        <description>Thermostat temperature setpoint</description>
+        <category>Temperature</category>
+        <state pattern="%.1f %unit%" readOnly="false" />
+    </channel-type>
+    
+    <channel-type id="setpointMode">
+        <item-type>String</item-type>
+        <label>Setpoint Mode</label>
+        <description>Chosen setpoint_mode (program, away, hg, manual, off, max)</description>
+        <state readOnly="false">
+            <options>
+                <option value="hg">Frost-guard</option>
+                <option value="manual">Applying a manually set temperature setpoint</option>
+                <option value="off">Currently off</option>
+                <option value="max">Heating continuously</option>
+            </options>
+        </state>
+    </channel-type>
+    
+    <channel-type id="humidex">
+        <item-type>Number</item-type>
+        <label>Humidex</label>
+        <description>Computed Humidex index</description>
+        <category>Temperature</category>
+        <state readOnly="true" pattern="%.0f" />
+    </channel-type>
+        
+    <channel-type id="ThermRelayCmd" advanced="false">
+        <item-type>Switch</item-type>
+        <label>Heating status</label>
+        <description>Indicates whether the furnace is heating or not</description>
+    </channel-type>
+    
+    <channel-type id="duration">
+        <item-type>Number:Time</item-type>
+        <label>Duration</label>
+        <description>Duration of last ON state</description>
+        <state readOnly="true" pattern="%d %unit%" />
+    </channel-type>
+    	
+
+</thing:thing-descriptions>
