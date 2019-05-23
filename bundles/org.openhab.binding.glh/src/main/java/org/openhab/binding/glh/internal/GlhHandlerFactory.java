@@ -12,8 +12,9 @@
  */
 package org.openhab.binding.glh.internal;
 
-import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -22,6 +23,7 @@ import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
+import org.openhab.binding.glh.internal.handler.FacadeHandler;
 import org.openhab.binding.glh.internal.handler.ThermostatHandler;
 import org.osgi.service.component.annotations.Component;
 
@@ -34,8 +36,10 @@ import org.osgi.service.component.annotations.Component;
 @NonNullByDefault
 @Component(service = ThingHandlerFactory.class, configurationPid = "binding.glh")
 public class GlhHandlerFactory extends BaseThingHandlerFactory {
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Collections
-            .singleton(GlhBindingConstants.THING_TYPE_THERMOSTAT);
+    // List of all supported physical devices and modules
+    public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream
+            .of(GlhBindingConstants.THING_TYPE_THERMOSTAT, GlhBindingConstants.THING_TYPE_FACADE)
+            .collect(Collectors.toSet());
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
@@ -48,6 +52,8 @@ public class GlhHandlerFactory extends BaseThingHandlerFactory {
 
         if (thingTypeUID.equals(GlhBindingConstants.THING_TYPE_THERMOSTAT)) {
             return new ThermostatHandler(thing);
+        } else if (thingTypeUID.equals(GlhBindingConstants.THING_TYPE_FACADE)) {
+            return new FacadeHandler(thing);
         }
         return null;
     }
