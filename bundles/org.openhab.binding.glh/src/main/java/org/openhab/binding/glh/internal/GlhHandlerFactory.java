@@ -25,6 +25,7 @@ import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.openhab.binding.glh.internal.handler.FacadeHandler;
 import org.openhab.binding.glh.internal.handler.ThermostatHandler;
+import org.openhab.binding.glh.internal.handler.VRolloHandler;
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -38,7 +39,8 @@ import org.osgi.service.component.annotations.Component;
 public class GlhHandlerFactory extends BaseThingHandlerFactory {
     // List of all supported physical devices and modules
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Stream
-            .of(GlhBindingConstants.THING_TYPE_THERMOSTAT, GlhBindingConstants.THING_TYPE_FACADE)
+            .of(GlhBindingConstants.THING_TYPE_THERMOSTAT, GlhBindingConstants.THING_TYPE_FACADE,
+                    GlhBindingConstants.THING_TYPE_VROLLO)
             .collect(Collectors.toSet());
 
     @Override
@@ -54,6 +56,8 @@ public class GlhHandlerFactory extends BaseThingHandlerFactory {
             return new ThermostatHandler(thing);
         } else if (thingTypeUID.equals(GlhBindingConstants.THING_TYPE_FACADE)) {
             return new FacadeHandler(thing);
+        } else if (thingTypeUID.equals(GlhBindingConstants.THING_TYPE_VROLLO)) {
+            return new VRolloHandler(thing);
         }
         return null;
     }

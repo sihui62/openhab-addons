@@ -65,7 +65,37 @@
                 <default>2</default>
             </parameter>
         </config-description>
+    </thing-type>
+    
+    <!-- Virtual Rollershutter Thing Type -->
+    <thing-type id="vrollo">
+        <label>Virtual Rollershutter Thing</label>
+        <description>This thing represents a virtual rollershutter</description>
 
+        <channels>
+            <channel id="rollershutter" typeId="rollershutter" />
+            <channel id="actuator" typeId="actuator" />
+            <channel id="position" typeId="position" />
+            <channel id="dimmer" typeId="dimmer" />
+            <channel id="opened" typeId="contact">
+            	<label>Opened</label>
+            </channel>
+            <channel id="closed" typeId="contact">
+            	<label>Closed</label>
+            </channel>
+            <channel id="status" typeId="status" />
+        </channels>
+        
+        <config-description>
+            <parameter name="timeUp" type="integer" required="true">
+                <label>Time Up</label>
+                <default>30</default>
+            </parameter>
+            <parameter name="timeDown" type="integer" required="true">
+                <label>Time Down</label>
+                <default>30</default>
+            </parameter>
+        </config-description>
     </thing-type>
 	
     <!-- Channel Type -->
@@ -176,6 +206,48 @@
             </options>
         </state>
     </channel-type>
-    	
+    
+    <channel-type id="actuator" advanced="false">
+        <item-type>Switch</item-type>
+        <label>Actual Switch</label>
+    </channel-type>
+    
+    <channel-type id="rollershutter">
+        <item-type>RollerShutter</item-type>
+        <label>Roller Shutter</label>
+        <description>Roller shutter channel</description>
+        <state readOnly="false"></state>
+    </channel-type>
+    
+    <channel-type id="position">
+        <item-type>Number:Dimensionless</item-type>
+        <label>Position</label>
+        <description>Current Position</description>
+        <state min="0" max="100" pattern="%d %unit%" />
+    </channel-type>
+    <channel-type id="dimmer">
+        <item-type>Dimmer</item-type>
+        <label>Position</label>
+        <description>Current Position</description>
+    </channel-type>
+    <channel-type id="contact" advanced="false">
+        <item-type>Switch</item-type>
+        <label>Open or closed contact</label>
+    </channel-type>
+    
+    <channel-type id="status">
+        <item-type>String</item-type>
+        <label>Status</label>
+        <description>Status of the rollershutter</description>
+        <state readOnly="true">
+            <options>
+                <option value="closed">Closed</option>
+                <option value="opened">Opened</option>
+                <option value="movingup">Moving Up</option>
+                <option value="movingdown">Moving Down</option>
+                <option value="stopped">Stopped</option>
+            </options>
+        </state>
+    </channel-type>
 
 </thing:thing-descriptions>

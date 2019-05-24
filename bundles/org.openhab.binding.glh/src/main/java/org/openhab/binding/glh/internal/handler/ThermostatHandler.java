@@ -167,7 +167,8 @@ public class ThermostatHandler extends BaseThingHandler {
                 updateState(CHANNEL_DURATION, new QuantityType<>(sinceLastChange / 1000, SmartHomeUnits.SECOND));
             }
             heatingState = newState;
-            updateState(CHANNEL_THERM_RELAY, heatingState);
+            postCommand(CHANNEL_THERM_RELAY, newState);
+            // updateState(CHANNEL_THERM_RELAY, heatingState);
         }
     }
 
