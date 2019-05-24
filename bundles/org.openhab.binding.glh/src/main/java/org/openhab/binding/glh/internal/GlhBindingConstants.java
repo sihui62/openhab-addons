@@ -13,6 +13,8 @@
 package org.openhab.binding.glh.internal;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.smarthome.core.library.types.StringType;
+import org.eclipse.smarthome.core.types.State;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 
 /**
@@ -29,6 +31,7 @@ public class GlhBindingConstants {
     // List of all Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_THERMOSTAT = new ThingTypeUID(BINDING_ID, "thermostat");
     public static final ThingTypeUID THING_TYPE_FACADE = new ThingTypeUID(BINDING_ID, "facade");
+    public static final ThingTypeUID THING_TYPE_VROLLO = new ThingTypeUID(BINDING_ID, "vrollo");
 
     // Facade Channel ids
     public static final String SUN_AZIMUTH = "sunAzimuth";
@@ -56,4 +59,19 @@ public class GlhBindingConstants {
     public static final String SETPOINT_MODE_HG = "hg";
     public static final String SETPOINT_MODE_OFF = "off";
     public static final String SETPOINT_MODE_MAX = "max";
+
+    // Virtual Rollo Channels
+    public static final String CHANNEL_ROLLERSHUTTER = "rollershutter";
+    public static final String CHANNEL_ACTUATOR = "actuator";
+    public static final String CHANNEL_POSITION = "position";
+    public static final String CHANNEL_DIMMER = "dimmer";
+    public static final String CHANNEL_OPENED = "opened";
+    public static final String CHANNEL_CLOSED = "closed";
+    public static final String CHANNEL_STATUS = "status";
+    
+    public static final State ROLLO_STATUS_CLOSED = new StringType("closed");
+    public static final State ROLLO_STATUS_OPENED = new StringType("opened");
+    public static final State ROLLO_STATUS_MOVEUP = new StringType("movingup");
+    public static final State ROLLO_STATUS_MOVEDOWN = new StringType("movingdown");
+    public static final State ROLLO_STATUS_STOPPED = new StringType("stopped");
 }
