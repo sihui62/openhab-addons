@@ -213,7 +213,7 @@
     </channel-type>
     
     <channel-type id="rollershutter">
-        <item-type>RollerShutter</item-type>
+        <item-type>Rollershutter</item-type>
         <label>Roller Shutter</label>
         <description>Roller shutter channel</description>
         <state readOnly="false"></state>
@@ -225,11 +225,13 @@
         <description>Current Position</description>
         <state min="0" max="100" pattern="%d %unit%" />
     </channel-type>
+    
     <channel-type id="dimmer">
         <item-type>Dimmer</item-type>
         <label>Position</label>
         <description>Current Position</description>
     </channel-type>
+    
     <channel-type id="contact" advanced="false">
         <item-type>Switch</item-type>
         <label>Open or closed contact</label>
