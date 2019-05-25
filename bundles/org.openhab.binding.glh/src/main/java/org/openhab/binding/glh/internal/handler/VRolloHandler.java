@@ -67,51 +67,53 @@ public class VRolloHandler extends BaseThingHandler {
 
     @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
-    	String id = channelUID.getId();
-		switch (id) {
-    		case CHANNEL_CLOSED :  if (command instanceof OnOffType) {
-    			OnOffType openclosed = (OnOffType) command;
-    			if (openclosed == OnOffType.ON) {
-    				setCurrentPosition(0);
-    			} else {
-    				setCurrentPosition(5);
-    				updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEUP);
-    			}
-    		}
-    		break;
-    		case CHANNEL_OPENED : if (command instanceof OnOffType) {
-    			OnOffType openclosed = (OnOffType) command;
-    			if (openclosed == OnOffType.ON) {
-    				setCurrentPosition(100);
-    			} else {
-    				setCurrentPosition(95);
-    				updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEDOWN);
-    			}
-    		}
-    		break;
-    		default : 
-    	        if (command instanceof UpDownType) {
-    	            movetoTarget((UpDownType) command == UpDownType.UP ? 100 : 0);
-    	        } else if (command instanceof StopMoveType) {
-    	            if ((StopMoveType) command == StopMoveType.STOP && ongoingAction != null) {
-    	                terminateMove();
-    	            }
-    	        } else if (command instanceof OnOffType) {
-    	            movetoTarget((OnOffType) command == OnOffType.ON ? 100 : 0);
-    	        } else if (command instanceof QuantityType) {
-    	            movetoTarget(((QuantityType<?>) command).intValue());
-    	        } else if (command instanceof DecimalType) {
-    	            movetoTarget(((DecimalType) command).intValue());
-    	        }
-
-    	}     
-	}
+        String id = channelUID.getId();
+        switch (id) {
+            case CHANNEL_CLOSED:
+                if (command instanceof OnOffType) {
+                    OnOffType openclosed = (OnOffType) command;
+                    if (openclosed == OnOffType.ON) {
+                        setCurrentPosition(0);
+                    } else {
+                        setCurrentPosition(5);
+                        updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEUP);
+                    }
+                }
+                break;
+            case CHANNEL_OPENED:
+                if (command instanceof OnOffType) {
+                    OnOffType openclosed = (OnOffType) command;
+                    if (openclosed == OnOffType.ON) {
+                        setCurrentPosition(100);
+                    } else {
+                        setCurrentPosition(95);
+                        updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEDOWN);
+                    }
+                }
+                break;
+            case CHANNEL_ROLLERSHUTTER:
+                if (command instanceof UpDownType) {
+                    movetoTarget((UpDownType) command == UpDownType.UP ? 100 : 0);
+                } else if (command instanceof StopMoveType) {
+                    if ((StopMoveType) command == StopMoveType.STOP && ongoingAction != null) {
+                        terminateMove();
+                    }
+                } else if (command instanceof OnOffType) {
+                    movetoTarget((OnOffType) command == OnOffType.ON ? 100 : 0);
+                } else if (command instanceof QuantityType) {
+                    movetoTarget(((QuantityType<?>) command).intValue());
+                } else if (command instanceof DecimalType) {
+                    movetoTarget(((DecimalType) command).intValue());
+                }
+                break;
+        }
+    }
 
     private void movetoTarget(int i) {
         if (currentPosition != i) {
             int toMove = currentPosition - i;
             OnOffType expectedAction = toMove < 0 ? OnOffType.ON : OnOffType.OFF;
-			updateState(CHANNEL_STATUS, toMove < 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
+            updateState(CHANNEL_STATUS, toMove < 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
             if (ongoingAction == null) {
                 ongoingAction = expectedAction;
                 int delay = toMove > 0 ? upUpdateDelay : downUpdateDelay;
@@ -136,20 +138,20 @@ public class VRolloHandler extends BaseThingHandler {
 
     }
 
-	private void updateActuator() {
-		postCommand(CHANNEL_ACTUATOR, ongoingAction);
-		//updateState(CHANNEL_ACTUATOR, ongoingAction);
-	}
+    private void updateActuator() {
+        postCommand(CHANNEL_ACTUATOR, ongoingAction);
+        // updateState(CHANNEL_ACTUATOR, ongoingAction);
+    }
 
     private void setCurrentPosition(int i) {
         currentPosition = i;
         QuantityType<Dimensionless> state = new QuantityType<>(currentPosition, SmartHomeUnits.PERCENT);
-		updateState(CHANNEL_POSITION, state);
-        updateState(CHANNEL_DIMMER,state );
+        updateState(CHANNEL_POSITION, state);
+        updateState(CHANNEL_DIMMER, state);
         if (i == 0) {
-        	updateState(CHANNEL_STATUS, ROLLO_STATUS_CLOSED);
+            updateState(CHANNEL_STATUS, ROLLO_STATUS_CLOSED);
         } else if (i == 100) {
-        	updateState(CHANNEL_STATUS, ROLLO_STATUS_OPENED);
+            updateState(CHANNEL_STATUS, ROLLO_STATUS_OPENED);
         }
     }
 
