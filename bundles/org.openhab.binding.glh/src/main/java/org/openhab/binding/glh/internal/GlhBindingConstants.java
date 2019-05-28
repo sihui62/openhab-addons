@@ -14,8 +14,8 @@ package org.openhab.binding.glh.internal;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.smarthome.core.library.types.StringType;
-import org.eclipse.smarthome.core.types.State;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
+import org.eclipse.smarthome.core.types.State;
 
 /**
  * The {@link ThermostatBindingConstants} class defines common constants, which are
@@ -32,6 +32,7 @@ public class GlhBindingConstants {
     public static final ThingTypeUID THING_TYPE_THERMOSTAT = new ThingTypeUID(BINDING_ID, "thermostat");
     public static final ThingTypeUID THING_TYPE_FACADE = new ThingTypeUID(BINDING_ID, "facade");
     public static final ThingTypeUID THING_TYPE_VROLLO = new ThingTypeUID(BINDING_ID, "vrollo");
+    public static final ThingTypeUID THING_TYPE_VGARAGE = new ThingTypeUID(BINDING_ID, "vgaragedoor");
 
     // Facade Channel ids
     public static final String SUN_AZIMUTH = "sunAzimuth";
@@ -68,7 +69,7 @@ public class GlhBindingConstants {
     public static final String CHANNEL_OPENED = "opened";
     public static final String CHANNEL_CLOSED = "closed";
     public static final String CHANNEL_STATUS = "status";
-    
+
     public static final State ROLLO_STATUS_CLOSED = new StringType("closed");
     public static final State ROLLO_STATUS_OPENED = new StringType("opened");
     public static final State ROLLO_STATUS_MOVEUP = new StringType("movingup");
