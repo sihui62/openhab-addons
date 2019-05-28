@@ -77,12 +77,6 @@
             <channel id="actuator" typeId="actuator" />
             <channel id="position" typeId="position" />
             <channel id="dimmer" typeId="dimmer" />
-            <channel id="opened" typeId="contact">
-            	<label>Opened</label>
-            </channel>
-            <channel id="closed" typeId="contact">
-            	<label>Closed</label>
-            </channel>
             <channel id="status" typeId="status" />
         </channels>
         
@@ -97,7 +91,36 @@
             </parameter>
         </config-description>
     </thing-type>
-	
+
+    <thing-type id="vgaragedoor">
+        <label>Virtual Garage Door Thing</label>
+        <description>This thing represents a virtual garage door</description>
+
+        <channels>
+            <channel id="rollershutter" typeId="rollershutter" />
+            <channel id="actuator" typeId="actuator" />
+            <channel id="position" typeId="position" />
+            <channel id="dimmer" typeId="dimmer" />
+            <channel id="opened" typeId="contact">
+                <label>Opened</label>
+            </channel>
+            <channel id="closed" typeId="contact">
+                <label>Closed</label>
+            </channel>
+            <channel id="status" typeId="status" />
+        </channels>
+        
+        <config-description>
+            <parameter name="timeUp" type="integer" required="true">
+                <label>Time Up</label>
+                <default>30</default>
+            </parameter>
+            <parameter name="timeDown" type="integer" required="true">
+                <label>Time Down</label>
+                <default>30</default>
+            </parameter>
+        </config-description>
+    </thing-type>	
     <!-- Channel Type -->
     <channel-type id="temperature">
         <item-type>Number:Temperature</item-type>
@@ -233,7 +256,7 @@
     </channel-type>
     
     <channel-type id="contact" advanced="false">
-        <item-type>Switch</item-type>
+        <item-type>Contact</item-type>
         <label>Open or closed contact</label>
     </channel-type>
     

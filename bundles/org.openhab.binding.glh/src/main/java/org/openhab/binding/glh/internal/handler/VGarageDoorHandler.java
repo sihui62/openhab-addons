@@ -23,6 +23,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.OnOffType;
+import org.eclipse.smarthome.core.library.types.OpenClosedType;
 import org.eclipse.smarthome.core.library.types.QuantityType;
 import org.eclipse.smarthome.core.library.types.StopMoveType;
 import org.eclipse.smarthome.core.library.types.UpDownType;
@@ -37,21 +38,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link VRolloHandler} is responsible for updating calculated facade
+ * The {@link VGarageDoorHandler} is responsible for updating calculated facade
  * illumination data.
  *
  * @author Gaël L'hopital - Initial contribution
  */
 @NonNullByDefault
-public class VRolloHandler extends BaseThingHandler {
-    private final Logger logger = LoggerFactory.getLogger(VRolloHandler.class);
+public class VGarageDoorHandler extends BaseThingHandler {
+    private final Logger logger = LoggerFactory.getLogger(VGarageDoorHandler.class);
     private int upUpdateDelay;
     private int downUpdateDelay;
     private int currentPosition;
     private @NonNullByDefault({}) OnOffType ongoingAction;
     private @Nullable ScheduledFuture<?> positionUpdater;
 
-    public VRolloHandler(Thing thing) {
+    public VGarageDoorHandler(Thing thing) {
         super(thing);
     }
 
@@ -69,12 +70,34 @@ public class VRolloHandler extends BaseThingHandler {
     public void handleCommand(ChannelUID channelUID, Command command) {
         String id = channelUID.getId();
         switch (id) {
+            case CHANNEL_CLOSED:
+                if (command instanceof OpenClosedType) {
+                    OpenClosedType openclosed = (OpenClosedType) command;
+                    if (openclosed == OpenClosedType.CLOSED) {
+                        setCurrentPosition(0);
+                    } else {
+                        setCurrentPosition(5);
+                        updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEUP);
+                    }
+                }
+                break;
+            case CHANNEL_OPENED:
+                if (command instanceof OpenClosedType) {
+                    OpenClosedType openclosed = (OpenClosedType) command;
+                    if (openclosed == OpenClosedType.CLOSED) {
+                        setCurrentPosition(100);
+                    } else {
+                        setCurrentPosition(95);
+                        updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEDOWN);
+                    }
+                }
+                break;
             case CHANNEL_ROLLERSHUTTER:
                 if (command instanceof UpDownType) {
                     movetoTarget((UpDownType) command == UpDownType.UP ? 100 : 0);
                 } else if (command instanceof StopMoveType) {
                     if ((StopMoveType) command == StopMoveType.STOP && ongoingAction != null) {
-                        terminateMove();
+                        // terminateMove();
                     }
                 } else if (command instanceof OnOffType) {
                     movetoTarget((OnOffType) command == OnOffType.ON ? 100 : 0);
@@ -90,7 +113,7 @@ public class VRolloHandler extends BaseThingHandler {
     private void movetoTarget(int i) {
         if (currentPosition != i) {
             int toMove = currentPosition - i;
-            OnOffType expectedAction = toMove < 0 ? OnOffType.ON : OnOffType.OFF;
+            OnOffType expectedAction = OnOffType.ON;
             updateState(CHANNEL_STATUS, toMove < 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
             if (ongoingAction == null) {
                 ongoingAction = expectedAction;
@@ -133,7 +156,7 @@ public class VRolloHandler extends BaseThingHandler {
     }
 
     private void terminateMove() {
-        updateActuator();
+        // updateActuator();
         ongoingAction = null;
         cancelPositionUpdater();
         updateState(CHANNEL_STATUS, ROLLO_STATUS_STOPPED);
