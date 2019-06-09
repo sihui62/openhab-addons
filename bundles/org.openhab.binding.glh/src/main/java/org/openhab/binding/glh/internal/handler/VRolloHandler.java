@@ -98,7 +98,7 @@ public class VRolloHandler extends BaseThingHandler {
 
                 updateActuator();
                 positionUpdater = scheduler.scheduleAtFixedRate(() -> {
-                    int newPosition = currentPosition + (ongoingAction == OnOffType.ON ? 10 : -10);
+                    int newPosition = currentPosition + (ongoingAction == OnOffType.ON ? -10 : 10);
                     if ((toMove < 0 && newPosition > i) || (toMove >= 0 && newPosition < i)) {
                         terminateMove();
                         setCurrentPosition(i);
