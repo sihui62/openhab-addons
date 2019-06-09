@@ -75,8 +75,6 @@
         <channels>
             <channel id="rollershutter" typeId="rollershutter" />
             <channel id="actuator" typeId="actuator" />
-            <channel id="position" typeId="position" />
-            <channel id="dimmer" typeId="dimmer" />
             <channel id="status" typeId="status" />
         </channels>
         
@@ -99,8 +97,6 @@
         <channels>
             <channel id="rollershutter" typeId="rollershutter" />
             <channel id="actuator" typeId="actuator" />
-            <channel id="position" typeId="position" />
-            <channel id="dimmer" typeId="dimmer" />
             <channel id="opened" typeId="contact">
                 <label>Opened</label>
             </channel>
@@ -241,20 +237,7 @@
         <description>Roller shutter channel</description>
         <state readOnly="false"></state>
     </channel-type>
-    
-    <channel-type id="position">
-        <item-type>Number:Dimensionless</item-type>
-        <label>Position</label>
-        <description>Current Position</description>
-        <state min="0" max="100" pattern="%d %unit%" />
-    </channel-type>
-    
-    <channel-type id="dimmer">
-        <item-type>Dimmer</item-type>
-        <label>Position</label>
-        <description>Current Position</description>
-    </channel-type>
-    
+        
     <channel-type id="contact" advanced="false">
         <item-type>Contact</item-type>
         <label>Open or closed contact</label>
