@@ -146,6 +146,12 @@ public class VGarageDoorHandler extends BaseThingHandler {
 
     private void setCurrentPosition(int i) {
         currentPosition = i;
+        if (currentPosition < 0) {
+            currentPosition = 0;
+        }
+        if (currentPosition > 100) {
+            currentPosition = 100;
+        }
         QuantityType<Dimensionless> state = new QuantityType<>(currentPosition, SmartHomeUnits.PERCENT);
         updateState(CHANNEL_ROLLERSHUTTER, state);
         if (i == 0) {
