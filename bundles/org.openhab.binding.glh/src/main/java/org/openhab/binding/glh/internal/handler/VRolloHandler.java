@@ -123,8 +123,6 @@ public class VRolloHandler extends BaseThingHandler {
     private void setCurrentPosition(int i) {
         currentPosition = i;
         QuantityType<Dimensionless> state = new QuantityType<>(currentPosition, SmartHomeUnits.PERCENT);
-        updateState(CHANNEL_POSITION, state);
-        updateState(CHANNEL_DIMMER, state);
         if (i == 0) {
             updateState(CHANNEL_STATUS, ROLLO_STATUS_CLOSED);
         } else if (i == 100) {

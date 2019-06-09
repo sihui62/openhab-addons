@@ -64,8 +64,6 @@ public class GlhBindingConstants {
     // Virtual Rollo Channels
     public static final String CHANNEL_ROLLERSHUTTER = "rollershutter";
     public static final String CHANNEL_ACTUATOR = "actuator";
-    public static final String CHANNEL_POSITION = "position";
-    public static final String CHANNEL_DIMMER = "dimmer";
     public static final String CHANNEL_OPENED = "opened";
     public static final String CHANNEL_CLOSED = "closed";
     public static final String CHANNEL_STATUS = "status";
