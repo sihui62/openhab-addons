@@ -71,13 +71,14 @@ public class VRolloHandler extends BaseThingHandler {
         switch (id) {
             case CHANNEL_ROLLERSHUTTER:
                 if (command instanceof UpDownType) {
-                    movetoTarget((UpDownType) command == UpDownType.UP ? 100 : 0);
+                    // Pour openhab 100= 100% fermé
+                    movetoTarget((UpDownType) command == UpDownType.UP ? 0 : 100);
                 } else if (command instanceof StopMoveType) {
                     if ((StopMoveType) command == StopMoveType.STOP && ongoingAction != null) {
                         terminateMove();
                     }
                 } else if (command instanceof OnOffType) {
-                    movetoTarget((OnOffType) command == OnOffType.ON ? 100 : 0);
+                    movetoTarget((OnOffType) command == OnOffType.ON ? 0 : 100);
                 } else if (command instanceof QuantityType) {
                     movetoTarget(((QuantityType<?>) command).intValue());
                 } else if (command instanceof DecimalType) {
@@ -90,8 +91,8 @@ public class VRolloHandler extends BaseThingHandler {
     private void movetoTarget(int i) {
         if (currentPosition != i) {
             int toMove = currentPosition - i;
-            OnOffType expectedAction = toMove < 0 ? OnOffType.ON : OnOffType.OFF;
-            updateState(CHANNEL_STATUS, toMove < 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
+            OnOffType expectedAction = toMove > 0 ? OnOffType.ON : OnOffType.OFF;
+            updateState(CHANNEL_STATUS, toMove > 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
             if (ongoingAction == null) {
                 ongoingAction = expectedAction;
                 int delay = toMove > 0 ? upUpdateDelay : downUpdateDelay;
@@ -130,9 +131,9 @@ public class VRolloHandler extends BaseThingHandler {
         }
         QuantityType<Dimensionless> state = new QuantityType<>(currentPosition, SmartHomeUnits.PERCENT);
         updateState(CHANNEL_ROLLERSHUTTER, state);
-        if (i == 0) {
+        if (i == 100) {
             updateState(CHANNEL_STATUS, ROLLO_STATUS_CLOSED);
-        } else if (i == 100) {
+        } else if (i == 0) {
             updateState(CHANNEL_STATUS, ROLLO_STATUS_OPENED);
         }
     }
