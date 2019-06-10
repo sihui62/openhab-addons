@@ -73,7 +73,7 @@ public class VGarageDoorHandler extends BaseThingHandler {
                 if (command instanceof OpenClosedType) {
                     OpenClosedType openclosed = (OpenClosedType) command;
                     if (openclosed == OpenClosedType.CLOSED) {
-                        setCurrentPosition(0);
+                        setCurrentPosition(100);
                     } else {
                         setCurrentPosition(5);
                         updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEUP);
@@ -84,7 +84,7 @@ public class VGarageDoorHandler extends BaseThingHandler {
                 if (command instanceof OpenClosedType) {
                     OpenClosedType openclosed = (OpenClosedType) command;
                     if (openclosed == OpenClosedType.CLOSED) {
-                        setCurrentPosition(100);
+                        setCurrentPosition(0);
                     } else {
                         setCurrentPosition(95);
                         updateState(CHANNEL_STATUS, ROLLO_STATUS_MOVEDOWN);
@@ -93,14 +93,14 @@ public class VGarageDoorHandler extends BaseThingHandler {
                 break;
             case CHANNEL_ROLLERSHUTTER:
                 if (command instanceof UpDownType) {
-                    movetoTarget((UpDownType) command == UpDownType.UP ? 100 : 0);
+                    movetoTarget((UpDownType) command == UpDownType.UP ? 0 : 100);
                 } else if (command instanceof StopMoveType) {
                     if ((StopMoveType) command == StopMoveType.STOP && positionUpdater != null) {
                         updateActuator();
                         cancelPositionUpdater();
                     }
                 } else if (command instanceof OnOffType) {
-                    movetoTarget((OnOffType) command == OnOffType.ON ? 100 : 0);
+                    movetoTarget((OnOffType) command == OnOffType.ON ? 0 : 100);
                 } else if (command instanceof QuantityType) {
                     movetoTarget(((QuantityType<?>) command).intValue());
                 } else if (command instanceof DecimalType) {
@@ -113,7 +113,7 @@ public class VGarageDoorHandler extends BaseThingHandler {
     private void movetoTarget(int i) {
         if (currentPosition != i) {
             int toMove = currentPosition - i;
-            updateState(CHANNEL_STATUS, toMove < 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
+            updateState(CHANNEL_STATUS, toMove > 0 ? ROLLO_STATUS_MOVEUP : ROLLO_STATUS_MOVEDOWN);
             if (positionUpdater == null) {
                 int delay = toMove > 0 ? upDelay : downDelay;
 
@@ -154,9 +154,9 @@ public class VGarageDoorHandler extends BaseThingHandler {
         }
         QuantityType<Dimensionless> state = new QuantityType<>(currentPosition, SmartHomeUnits.PERCENT);
         updateState(CHANNEL_ROLLERSHUTTER, state);
-        if (i == 0) {
+        if (i == 100) {
             updateState(CHANNEL_STATUS, ROLLO_STATUS_CLOSED);
-        } else if (i == 100) {
+        } else if (i == 0) {
             updateState(CHANNEL_STATUS, ROLLO_STATUS_OPENED);
         }
     }
