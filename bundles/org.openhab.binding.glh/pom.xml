@@ -14,6 +14,12 @@
 
   <dependencies>
     <dependency>
+        <groupId>net.sourceforge.cardme</groupId>
+        <artifactId>cardme</artifactId>
+        <version>0.4.0</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.openhab.addons.bundles</groupId>
       <artifactId>org.openhab.io.transport.webdav</artifactId>
       <version>${project.version}</version>
