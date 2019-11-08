@@ -15,13 +15,19 @@ package org.openhab.binding.glh.internal;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * The {@link ThermostatConfiguration} is the class used to match the
+ * The {@link CardBookConfiguration} is the class used to match the
  * thing configuration.
  *
  * @author Gaël L'hopital - Initial contribution
  */
 @NonNullByDefault
-public class ThermostatConfiguration {
-    public Double histeresis = 0.5;
-    public Boolean useHumidex = false;
+public class CardBookConfiguration {
+    public String rootDirectory = "";
+    public Integer refresh = 1;
+    public String matchCategory = "";
+
+    public String domain = "";
+    public String username = "";
+    public String password = "";
+    public Boolean useHTTPS = true;
 }

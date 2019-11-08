@@ -62,7 +62,7 @@ public class VGarageDoorHandler extends BaseThingHandler {
         upDelay = config.timeUp;
         downDelay = config.timeDown;
         updateStatus(ThingStatus.ONLINE);
-        setCurrentPosition(49);
+        setCurrentPosition(100);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class VGarageDoorHandler extends BaseThingHandler {
 
                 updateActuator();
 
-                positionUpdater = scheduler.scheduleAtFixedRate(() -> {
+                positionUpdater = scheduler.scheduleWithFixedDelay(() -> {
                     int newPosition = currentPosition + (toMove > 0 ? -10 : 10);
                     setCurrentPosition(newPosition);
                 }, delay / 10, delay / 10, TimeUnit.SECONDS);

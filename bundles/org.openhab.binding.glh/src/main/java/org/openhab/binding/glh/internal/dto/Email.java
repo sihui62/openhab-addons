@@ -10,18 +10,33 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.glh.internal;
+package org.openhab.binding.glh.internal.dto;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
- * The {@link ThermostatConfiguration} is the class used to match the
- * thing configuration.
+ * The {@link Email} is responsible for storing Phone number data.
  *
  * @author Gaël L'hopital - Initial contribution
  */
 @NonNullByDefault
-public class ThermostatConfiguration {
-    public Double histeresis = 0.5;
-    public Boolean useHumidex = false;
+public class Email {
+    private String email = "";
+    private String type = "";
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

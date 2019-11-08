@@ -12,16 +12,19 @@
  */
 package org.openhab.binding.glh.internal;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+
 /**
  * The {@link FacadeConfiguration} class contains fields mapping thing configuration parameters.
  *
  * @author Gaël L'hopital - Initial contribution
  */
+@NonNullByDefault
 public class FacadeConfiguration {
-    private Integer orientation;
-    private Integer noffset;
-    private Integer poffset;
-    private Integer margin;
+    private Integer orientation = 90;
+    private Integer noffset = 90;
+    private Integer poffset = 90;
+    private Integer margin = 2;
 
     /**
      * Returns the orientation.

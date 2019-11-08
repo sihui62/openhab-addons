@@ -12,11 +12,14 @@
  */
 package org.openhab.binding.glh.internal;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+
 /**
  * The {@link VRolloConfiguration} class contains fields mapping thing configuration parameters.
  *
  * @author Gaël L'hopital - Initial contribution
  */
+@NonNullByDefault
 public class VRolloConfiguration {
     public Integer timeUp = 30;
     public Integer timeDown = 30;

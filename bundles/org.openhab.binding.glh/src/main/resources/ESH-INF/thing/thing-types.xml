@@ -1,261 +1,276 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<thing:thing-descriptions bindingId="glh"
-						  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						  xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
-						  xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-
+<thing:thing-descriptions bindingId="glh" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0" xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
 	<!-- Thermostat Thing Type -->
 	<thing-type id="thermostat">
 		<label>Thermostat Thing</label>
 		<description>This thing represents a thermostat</description>
 
-        <channels>
-            <channel id="Temperature" typeId="temperature" />
-            <channel id="Humidex" typeId="humidex" />
-            <channel id="Humidity" typeId="humidity" />
-            <channel id="Sp_Temperature" typeId="setpointTemp" />
-            <channel id="SetpointMode" typeId="setpointMode" />
-            <channel id="ThermRelayCmd" typeId="ThermRelayCmd" />
-            <channel id="duration" typeId="duration" />
-        </channels>
+		<channels>
+			 <channel id="Temperature" typeId="temperature" />
+			 <channel id="Humidex" typeId="humidex" />
+			 <channel id="Humidity" typeId="humidity" />
+			 <channel id="Sp_Temperature" typeId="setpointTemp" />
+			 <channel id="SetpointMode" typeId="setpointMode" />
+			 <channel id="ThermRelayCmd" typeId="ThermRelayCmd" />
+			 <channel id="duration" typeId="duration" />
+		</channels>
 		
 		<config-description>
-            <parameter name="histeresis" type="decimal" required="true">
-                <label>Histeresis</label>
-                <default>0.5</default>
-            </parameter>
-            <parameter name="useHumidex" type="boolean">
-                <label>Use Humidex</label>
-                <description>Whether the thermostat will use temperature or humidex</description>
-                <default>false</default>
-            </parameter>
-        </config-description>
+			 <parameter name="histeresis" type="decimal" required="true">
+				<label>Histeresis</label>
+				<default>0.5</default>
+			 </parameter>
+			 <parameter name="useHumidex" type="boolean">
+				<label>Use Humidex</label>
+				<description>Whether the thermostat will use temperature or humidex</description>
+				<default>false</default>
+			 </parameter>
+		</config-description>
 	</thing-type>
 	
-    <thing-type id="facade">
-        <label>Facade</label>
-        <description>Provides lighting data for the facade</description>
+	 <thing-type id="facade">
+		<label>Facade</label>
+		<description>Provides lighting data for the facade</description>
 
-        <channels>
-            <channel id="sunAzimuth" typeId="azimuth" />
-            <channel id="facingSun" typeId="facingSun"/>
-            <channel id="facadeEvent" typeId="facadeEvent" />
-            <channel id="bearing" typeId="bearing" />
-            <channel id="side" typeId="side" />
-        </channels>
+		<channels>
+			 <channel id="sunAzimuth" typeId="azimuth" />
+			 <channel id="facingSun" typeId="facingSun"/>
+			 <channel id="facadeEvent" typeId="facadeEvent" />
+			 <channel id="bearing" typeId="bearing" />
+			 <channel id="side" typeId="side" />
+		</channels>
 
-        <config-description>
-            <parameter name="orientation" type="integer" min="0" max="359" required="true">
-                <label>Orientation</label>
-                <description>Perpendicular bearing of the facade to geographical north.</description>
-            </parameter>
-            <parameter name="noffset" type="integer" min="0" max="90">
-                <label>Negative Offset</label>
-                <description>Anti-clockwise offset from orientation to determine if the sun is reaching the facade.</description>
-                <default>90</default>
-            </parameter>
-            <parameter name="poffset" type="integer" min="0" max="90">
-                <label>Positive Offset</label>
-                <description>Clockwise offset from orientation to determine the sun is reaching the facade.</description>
-                <default>90</default>
-            </parameter>
-            <parameter name="margin" type="integer" min="0" max="5">
-                <label>Margin</label>
-                <description>Calculation margin for front position.</description>
-                <default>2</default>
-            </parameter>
-        </config-description>
-    </thing-type>
-    
-    <!-- Virtual Rollershutter Thing Type -->
-    <thing-type id="vrollo">
-        <label>Virtual Rollershutter Thing</label>
-        <description>This thing represents a virtual rollershutter</description>
+		<config-description>
+			 <parameter name="orientation" type="integer" min="0" max="359" required="true">
+				<label>Orientation</label>
+				<description>Perpendicular bearing of the facade to geographical north.</description>
+			 </parameter>
+			 <parameter name="noffset" type="integer" min="0" max="90">
+				<label>Negative Offset</label>
+				<description>Anti-clockwise offset from orientation to determine if the sun is reaching the facade.</description>
+				<default>90</default>
+			 </parameter>
+			 <parameter name="poffset" type="integer" min="0" max="90">
+				<label>Positive Offset</label>
+				<description>Clockwise offset from orientation to determine the sun is reaching the facade.</description>
+				<default>90</default>
+			 </parameter>
+			 <parameter name="margin" type="integer" min="0" max="5">
+				<label>Margin</label>
+				<description>Calculation margin for front position.</description>
+				<default>2</default>
+			 </parameter>
+		</config-description>
+	 </thing-type>
+	 
+	 <thing-type id="cardbook">
+		<label>Card Book</label>
+		<description>Provides informations coming from a vCard server</description>
+		<config-description>
+             <parameter name="rootDirectory" type="text" required="true">
+                <label>Carbook directory</label>
+                <description>Path to the directory holding all your vcf files.</description>
+             </parameter>
+             <parameter name="refresh" type="integer" unit="h">
+                <label>Refresh interval</label>
+                <description>Specifies the directory scan interval in hours</description>
+                <default>12</default>
+             </parameter>
+             <parameter name="matchCategory" type="text">
+                <label>Matching Category</label>
+                <description>If specified, the given category must be present on the contact</description>
+             </parameter>
+		</config-description>
+	 </thing-type>
+	 
+	 <!-- Virtual Rollershutter Thing Type -->
+	 <thing-type id="vrollo">
+		<label>Virtual Rollershutter Thing</label>
+		<description>This thing represents a virtual rollershutter</description>
 
-        <channels>
-            <channel id="rollershutter" typeId="rollershutter" />
-            <channel id="actuator" typeId="actuator" />
-            <channel id="status" typeId="status" />
-        </channels>
-        
-        <config-description>
-            <parameter name="timeUp" type="integer" required="true">
-                <label>Time Up</label>
-                <default>30</default>
-            </parameter>
-            <parameter name="timeDown" type="integer" required="true">
-                <label>Time Down</label>
-                <default>30</default>
-            </parameter>
-        </config-description>
-    </thing-type>
+		<channels>
+			 <channel id="rollershutter" typeId="rollershutter" />
+			 <channel id="actuator" typeId="actuator" />
+			 <channel id="status" typeId="status" />
+		</channels>
+		
+		<config-description>
+			 <parameter name="timeUp" type="integer" required="true">
+				<label>Time Up</label>
+				<default>30</default>
+			 </parameter>
+			 <parameter name="timeDown" type="integer" required="true">
+				<label>Time Down</label>
+				<default>30</default>
+			 </parameter>
+		</config-description>
+	 </thing-type>
 
-    <thing-type id="vgaragedoor">
-        <label>Virtual Garage Door Thing</label>
-        <description>This thing represents a virtual garage door</description>
+	 <thing-type id="vgaragedoor">
+		<label>Virtual Garage Door Thing</label>
+		<description>This thing represents a virtual garage door</description>
 
-        <channels>
-            <channel id="rollershutter" typeId="rollershutter" />
-            <channel id="actuator" typeId="actuator" />
-            <channel id="opened" typeId="contact">
-                <label>Opened</label>
-            </channel>
-            <channel id="closed" typeId="contact">
-                <label>Closed</label>
-            </channel>
-            <channel id="status" typeId="status" />
-        </channels>
-        
-        <config-description>
-            <parameter name="timeUp" type="integer" required="true">
-                <label>Time Up</label>
-                <default>30</default>
-            </parameter>
-            <parameter name="timeDown" type="integer" required="true">
-                <label>Time Down</label>
-                <default>30</default>
-            </parameter>
-        </config-description>
-    </thing-type>	
-    <!-- Channel Type -->
-    <channel-type id="temperature">
-        <item-type>Number:Temperature</item-type>
-        <label>Temperature</label>
-        <description>Current temperature</description>
-        <category>Temperature</category>
-        <state pattern="%.1f %unit%" />
-    </channel-type>
+		<channels>
+			 <channel id="rollershutter" typeId="rollershutter" />
+			 <channel id="actuator" typeId="actuator" />
+			 <channel id="opened" typeId="contact">
+				<label>Opened</label>
+			 </channel>
+			 <channel id="closed" typeId="contact">
+				<label>Closed</label>
+			 </channel>
+			 <channel id="status" typeId="status" />
+		</channels>
+		
+		<config-description>
+			 <parameter name="timeUp" type="integer" required="true">
+				<label>Time Up</label>
+				<default>30</default>
+			 </parameter>
+			 <parameter name="timeDown" type="integer" required="true">
+				<label>Time Down</label>
+				<default>30</default>
+			 </parameter>
+		</config-description>
+	 </thing-type>	
+	 <!-- Channel Type -->
+	 <channel-type id="temperature">
+		<item-type>Number:Temperature</item-type>
+		<label>Temperature</label>
+		<description>Current temperature</description>
+		<category>Temperature</category>
+		<state pattern="%.1f %unit%" />
+	 </channel-type>
 
-    <channel-type id="humidity">
-        <item-type>Number:Dimensionless</item-type>
-        <label>Humidity</label>
-        <description>Current humidity</description>
-        <category>Humidity</category>
-        <state min="0" max="100" pattern="%.2f %unit%" />
-    </channel-type>
-       
-    <channel-type id="setpointTemp">
-        <item-type>Number:Temperature</item-type>
-        <label>Setpoint</label>
-        <description>Thermostat temperature setpoint</description>
-        <category>Temperature</category>
-        <state pattern="%.1f %unit%" readOnly="false" />
-    </channel-type>
-    
-    <channel-type id="setpointMode">
-        <item-type>String</item-type>
-        <label>Setpoint Mode</label>
-        <description>Chosen setpoint_mode (program, away, hg, manual, off, max)</description>
-        <state readOnly="false">
-            <options>
-                <option value="hg">Frost-guard</option>
-                <option value="manual">Applying a manually set temperature setpoint</option>
-                <option value="off">Currently off</option>
-                <option value="max">Heating continuously</option>
-            </options>
-        </state>
-    </channel-type>
-    
-    <channel-type id="humidex">
-        <item-type>Number</item-type>
-        <label>Humidex</label>
-        <description>Computed Humidex index</description>
-        <category>Temperature</category>
-        <state readOnly="true" pattern="%.0f" />
-    </channel-type>
-        
-    <channel-type id="ThermRelayCmd" advanced="false">
-        <item-type>Switch</item-type>
-        <label>Heating status</label>
-        <description>Indicates whether the furnace is heating or not</description>
-    </channel-type>
-    
-    <channel-type id="duration">
-        <item-type>Number:Time</item-type>
-        <label>Duration</label>
-        <description>Duration of last ON state</description>
-        <state readOnly="true" pattern="%d %unit%" />
-    </channel-type>
-    
-     <channel-type id="azimuth">
-        <item-type>Number:Angle</item-type>
-        <label>Azimuth</label>
-        <description>The azimuth of the sun</description>
-        <state pattern="%.2f %unit%" />
-    </channel-type>
-    
-    <channel-type id="facadeEvent">
-        <kind>trigger</kind>
-        <label>Facade Event</label>
-        <description>Sun in Facade event</description>
-        <event>
-            <options>
-                <option value="SUN_ENTER">Enters</option>
-                <option value="SUN_LEAVE">Leaves</option>
-                <option value="SUN_FRONT">In Front</option>
-            </options>
-        </event>
-    </channel-type>
-    
-    <channel-type id="facingSun">
-        <item-type>Switch</item-type>
-        <label>Facing Sun</label>
-        <description>Indicates whether the sun is facing facade</description>
-        <state readOnly="true" />
-    </channel-type>
-    
-    <channel-type id="bearing">
-        <item-type>Number:Dimensionless</item-type>
-        <label>Bearing</label>
-        <description>Sun bearing percentage (100% when the sun is in facade orientation)</description>
-        <state readOnly="true" pattern="%.0f %unit%" />
-    </channel-type>
-    
-    <channel-type id="side">
-        <item-type>String</item-type>
-        <label>Side</label>
-        <description>The side of the facade where shines the sun</description>
-        <state readOnly="true">
-            <options>
-                <option value="LEFT">Left</option>
-                <option value="RIGHT">Right</option>
-                <option value="FRONT">Front</option>
-                <option value="OUT_RIGHT">Out Right</option>
-                <option value="OUT_LEFT">Out Left</option>
-            </options>
-        </state>
-    </channel-type>
-    
-    <channel-type id="actuator" advanced="false">
-        <item-type>Switch</item-type>
-        <label>Actual Switch</label>
-    </channel-type>
-    
-    <channel-type id="rollershutter">
-        <item-type>Rollershutter</item-type>
-        <label>Roller Shutter</label>
-        <description>Roller shutter channel</description>
-        <state readOnly="false"></state>
-    </channel-type>
-        
-    <channel-type id="contact" advanced="false">
-        <item-type>Contact</item-type>
-        <label>Open or closed contact</label>
-    </channel-type>
-    
-    <channel-type id="status">
-        <item-type>String</item-type>
-        <label>Status</label>
-        <description>Status of the rollershutter</description>
-        <state readOnly="true">
-            <options>
-                <option value="closed">Closed</option>
-                <option value="opened">Opened</option>
-                <option value="movingup">Moving Up</option>
-                <option value="movingdown">Moving Down</option>
-                <option value="stopped">Stopped</option>
-            </options>
-        </state>
-    </channel-type>
-
+	 <channel-type id="humidity">
+		<item-type>Number:Dimensionless</item-type>
+		<label>Humidity</label>
+		<description>Current humidity</description>
+		<category>Humidity</category>
+		<state min="0" max="100" pattern="%.2f %unit%" />
+	 </channel-type>
+		 
+	 <channel-type id="setpointTemp">
+		<item-type>Number:Temperature</item-type>
+		<label>Setpoint</label>
+		<description>Thermostat temperature setpoint</description>
+		<category>Temperature</category>
+		<state pattern="%.1f %unit%" readOnly="false" />
+	 </channel-type>
+	 
+	 <channel-type id="setpointMode">
+		<item-type>String</item-type>
+		<label>Setpoint Mode</label>
+		<description>Chosen setpoint_mode (program, away, hg, manual, off, max)</description>
+		<state readOnly="false">
+			 <options>
+				<option value="hg">Frost-guard</option>
+				<option value="manual">Applying a manually set temperature setpoint</option>
+				<option value="off">Currently off</option>
+				<option value="max">Heating continuously</option>
+			 </options>
+		</state>
+	 </channel-type>
+	 
+	 <channel-type id="humidex">
+		<item-type>Number</item-type>
+		<label>Humidex</label>
+		<description>Computed Humidex index</description>
+		<category>Temperature</category>
+		<state readOnly="true" pattern="%.0f" />
+	 </channel-type>
+		
+	 <channel-type id="ThermRelayCmd" advanced="false">
+		<item-type>Switch</item-type>
+		<label>Heating status</label>
+		<description>Indicates whether the furnace is heating or not</description>
+	 </channel-type>
+	 
+	 <channel-type id="duration">
+		<item-type>Number:Time</item-type>
+		<label>Duration</label>
+		<description>Duration of last ON state</description>
+		<state readOnly="true" pattern="%d %unit%" />
+	 </channel-type>
+	 
+		<channel-type id="azimuth">
+		<item-type>Number:Angle</item-type>
+		<label>Azimuth</label>
+		<description>The azimuth of the sun</description>
+		<state pattern="%.2f %unit%" />
+	 </channel-type>
+	 
+	 <channel-type id="facadeEvent">
+		<kind>trigger</kind>
+		<label>Facade Event</label>
+		<description>Sun in Facade event</description>
+		<event>
+			 <options>
+				<option value="SUN_ENTER">Enters</option>
+				<option value="SUN_LEAVE">Leaves</option>
+				<option value="SUN_FRONT">In Front</option>
+			 </options>
+		</event>
+	 </channel-type>
+	 
+	 <channel-type id="facingSun">
+		<item-type>Switch</item-type>
+		<label>Facing Sun</label>
+		<description>Indicates whether the sun is facing facade</description>
+		<state readOnly="true" />
+	 </channel-type>
+	 
+	 <channel-type id="bearing">
+		<item-type>Number:Dimensionless</item-type>
+		<label>Bearing</label>
+		<description>Sun bearing percentage (100% when the sun is in facade orientation)</description>
+		<state readOnly="true" pattern="%.0f %unit%" />
+	 </channel-type>
+	 
+	 <channel-type id="side">
+		<item-type>String</item-type>
+		<label>Side</label>
+		<description>The side of the facade where shines the sun</description>
+		<state readOnly="true">
+			 <options>
+				<option value="LEFT">Left</option>
+				<option value="RIGHT">Right</option>
+				<option value="FRONT">Front</option>
+				<option value="OUT_RIGHT">Out Right</option>
+				<option value="OUT_LEFT">Out Left</option>
+			 </options>
+		</state>
+	 </channel-type>
+	 
+	 <channel-type id="actuator" advanced="false">
+		<item-type>Switch</item-type>
+		<label>Actual Switch</label>
+	 </channel-type>
+	 
+	 <channel-type id="rollershutter">
+		<item-type>Rollershutter</item-type>
+		<label>Roller Shutter</label>
+		<description>Roller shutter channel</description>
+		<state readOnly="false"></state>
+	 </channel-type>
+		
+	 <channel-type id="contact" advanced="false">
+		<item-type>Contact</item-type>
+		<label>Open or closed contact</label>
+	 </channel-type>
+	 
+	 <channel-type id="status">
+		<item-type>String</item-type>
+		<label>Status</label>
+		<description>Status of the rollershutter</description>
+		<state readOnly="true">
+			 <options>
+				<option value="closed">Closed</option>
+				<option value="opened">Opened</option>
+				<option value="movingup">Moving Up</option>
+				<option value="movingdown">Moving Down</option>
+				<option value="stopped">Stopped</option>
+			 </options>
+		</state>
+	 </channel-type>
 </thing:thing-descriptions>

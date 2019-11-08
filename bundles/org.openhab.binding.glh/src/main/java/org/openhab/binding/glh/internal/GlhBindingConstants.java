@@ -33,6 +33,7 @@ public class GlhBindingConstants {
     public static final ThingTypeUID THING_TYPE_FACADE = new ThingTypeUID(BINDING_ID, "facade");
     public static final ThingTypeUID THING_TYPE_VROLLO = new ThingTypeUID(BINDING_ID, "vrollo");
     public static final ThingTypeUID THING_TYPE_VGARAGE = new ThingTypeUID(BINDING_ID, "vgaragedoor");
+    public static final ThingTypeUID THING_TYPE_CARDBOOK = new ThingTypeUID(BINDING_ID, "cardbook");
 
     // Facade Channel ids
     public static final String SUN_AZIMUTH = "sunAzimuth";

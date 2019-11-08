@@ -10,18 +10,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.glh.internal;
+package org.openhab.io.transport.webdav;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
+import com.github.sardine.DavResource;
+
 /**
- * The {@link ThermostatConfiguration} is the class used to match the
- * thing configuration.
+ * This service provides functionalities to access WebDAV resources
  *
  * @author Gaël L'hopital - Initial contribution
  */
 @NonNullByDefault
-public class ThermostatConfiguration {
-    public Double histeresis = 0.5;
-    public Boolean useHumidex = false;
+public interface WebDAVManager {
+    public void defineFactory(String domain, String username, String password);
+
+    public List<DavResource> list(String path) throws MalformedURLException, IOException;
 }

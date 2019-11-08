@@ -12,4 +12,12 @@
 
   <name>openHAB Add-ons :: Bundles :: GLH Extensions Module</name>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.openhab.addons.bundles</groupId>
+      <artifactId>org.openhab.io.transport.webdav</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
 </project>

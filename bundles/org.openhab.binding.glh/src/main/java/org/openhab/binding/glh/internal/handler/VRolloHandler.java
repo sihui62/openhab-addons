@@ -62,7 +62,7 @@ public class VRolloHandler extends BaseThingHandler {
         upUpdateDelay = config.timeUp / 10;
         downUpdateDelay = config.timeDown / 10;
         updateStatus(ThingStatus.ONLINE);
-        setCurrentPosition(49);
+        setCurrentPosition(0);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class VRolloHandler extends BaseThingHandler {
                 int delay = toMove > 0 ? upUpdateDelay : downUpdateDelay;
 
                 updateActuator();
-                positionUpdater = scheduler.scheduleAtFixedRate(() -> {
+                positionUpdater = scheduler.scheduleWithFixedDelay(() -> {
                     int newPosition = currentPosition + (ongoingAction == OnOffType.ON ? -10 : 10);
                     if ((toMove < 0 && newPosition > i) || (toMove >= 0 && newPosition < i)) {
                         terminateMove();
