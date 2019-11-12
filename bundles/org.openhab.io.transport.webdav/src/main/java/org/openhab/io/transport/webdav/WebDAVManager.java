@@ -30,4 +30,6 @@ public interface WebDAVManager {
     public void defineFactory(String domain, String username, String password);
 
     public List<DavResource> list(String path) throws MalformedURLException, IOException;
+
+    public String get(String path) throws IOException;
 }

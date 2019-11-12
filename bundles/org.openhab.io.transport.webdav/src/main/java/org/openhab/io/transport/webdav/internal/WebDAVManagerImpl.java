@@ -13,12 +13,14 @@
 package org.openhab.io.transport.webdav.internal;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.openhab.io.transport.webdav.WebDAVManager;
 import org.osgi.framework.Constants;
@@ -58,13 +60,23 @@ public class WebDAVManagerImpl implements WebDAVManager {
 
     @Override
     public List<DavResource> list(String path) throws MalformedURLException, IOException {
-        URL url = new URL(path);
+        return getFactory(path).list(path);
+    }
+
+    @Override
+    public String get(String path) throws IOException {
+        Sardine factory = getFactory(path);
+        InputStream inputStream = factory.get(path.toString());
+        byte[] bytes = IOUtils.toByteArray(inputStream);
+        return new String(bytes);
+    }
+
+    private Sardine getFactory(String address) throws IOException {
+        URL url = new URL(address);
         String key = url.getProtocol() + url.getHost();
         if (factories.containsKey(key)) {
-            Sardine factory = factories.get(key);
-            return factory.list(path);
-        } else {
-            throw new IOException("Domain not found");
+            return factories.get(key);
         }
+        throw new IOException(String.format("Domain '{}' not found", key));
     }
 }

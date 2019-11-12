@@ -14,6 +14,9 @@ package org.openhab.binding.glh.internal.handler;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -24,7 +27,6 @@ import org.eclipse.smarthome.core.library.types.RawType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
-import org.eclipse.smarthome.core.thing.ThingStatusDetail;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.glh.internal.CardBookConfiguration;
@@ -71,17 +73,9 @@ public class CardBookHandler extends BaseThingHandler {
     public void initialize() {
         logger.debug("Initializing thing {}", getThing().getUID());
         config = getConfigAs(CardBookConfiguration.class);
-        try {
-            webDAVManager.defineFactory(config.domain, config.username, config.password);
-            loadContacts();
-            updateStatus(ThingStatus.ONLINE);
-        } catch (VCardParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, e.getMessage());
-        }
-
+        webDAVManager.defineFactory(config.domain, config.username, config.password);
+        loadContacts();
+        updateStatus(ThingStatus.ONLINE);
     }
 
     @Override
@@ -90,11 +84,44 @@ public class CardBookHandler extends BaseThingHandler {
 
     }
 
-    private List<Contact> loadContacts() throws VCardParseException, IOException {
+    private List<Contact> loadContacts() {
         logger.info("Starting CardBook listing...");
         List<Contact> contacts = new ArrayList<Contact>();
-        List<DavResource> resources = webDAVManager
-                .list("https://lhopital.org/nextcloud/remote.php/dav/addressbooks/users/gael/contacts/");
+        String address = "https://lhopital.org/nextcloud/remote.php/dav/addressbooks/users/gael/contacts/";
+        List<DavResource> resources;
+        try {
+            resources = webDAVManager.list(address);
+            resources = resources.stream().filter(r -> !r.isDirectory()).filter(r -> r.getName().endsWith(".vcf"))
+                    .collect(Collectors.toList());
+            resources.forEach(resource -> {
+                URI href = resource.getHref();
+                URL url;
+                try {
+                    url = new URL(address);
+                    url = new URL(url.getProtocol(), url.getHost(), url.getPort(), href.toString());
+
+                    String content = webDAVManager.get(url.toString());
+                    VCard parse = vCardEngine.parse(content);
+
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (VCardParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
+        } catch (MalformedURLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
         File cardBook = new File(config.rootDirectory);
 
         for (File file : cardBook.listFiles((d, name) -> name.endsWith(".vcf"))) {

@@ -23,6 +23,7 @@
       <groupId>org.openhab.addons.bundles</groupId>
       <artifactId>org.openhab.io.transport.webdav</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
