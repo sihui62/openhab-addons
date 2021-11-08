@@ -35,9 +35,14 @@ public class Contact {
     private final List<Address> addressList = new ArrayList<>();
     private final String id;
     private final @Nullable String firstName;
-    private final @Nullable String lastName;
+    private @Nullable String lastName;
     private LocalDate birthday = LocalDate.MAX;
     private @Nullable RawType photo;
+
+    public Contact(String id, String fName) {
+        this.id = id;
+        this.firstName = fName;
+    }
 
     public Contact(String id, String fName, String lName) {
         this.id = id;

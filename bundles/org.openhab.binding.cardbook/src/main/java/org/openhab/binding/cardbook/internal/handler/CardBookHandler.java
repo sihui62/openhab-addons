@@ -12,6 +12,10 @@
  */
 package org.openhab.binding.cardbook.internal.handler;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -27,6 +31,10 @@ import org.openhab.core.thing.binding.BaseThingHandler;
 import org.openhab.core.types.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ezvcard.VCard;
+import ezvcard.io.text.VCardReader;
+import ezvcard.property.FormattedName;
 
 /**
  * The {@link CardBookHandler} is for getting informations from a vCard file
@@ -55,8 +63,36 @@ public abstract class CardBookHandler extends BaseThingHandler {
 
             final List<Contact> contacts = new ArrayList<Contact>();
             rawContacts.forEach(rawData -> {
-                // try {
-                // VCard vcard = vCardEngine.parse(rawData);
+                InputStream stream = new ByteArrayInputStream(rawData.getBytes(StandardCharsets.UTF_8));
+                VCardReader reader = new VCardReader(rawData);
+                try {
+                    VCard vcard;
+                    while ((vcard = reader.readNext()) != null) {
+                        FormattedName fn = vcard.getFormattedName();
+                        String name = (fn == null) ? "" : fn.getValue();
+                        Contact contact = new Contact(Integer.toString(rawData.hashCode()), name);
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    // e.printStackTrace();
+                } finally {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        // e.printStackTrace();
+                    }
+                }
+
+                // List<Property> prop = card.getProperties(Id.N);
+                // // Contact contact = new Contact(Integer.toString(rawData.hashCode()), vcard.getProperty(Id.N)
+                // // .getGivenName(),
+                // // vcard.getN().getFamilyName());
+                // // stream.close();
+                // } catch (IOException | ParserException e) {
+                // // TODO Auto-generated catch block
+                // e.printStackTrace();
+                // }
                 // Contact contact = new Contact(Integer.toString(rawData.hashCode()), vcard.getN().getGivenName(),
                 // vcard.getN().getFamilyName());
                 // if (vcard.hasBDay()) {

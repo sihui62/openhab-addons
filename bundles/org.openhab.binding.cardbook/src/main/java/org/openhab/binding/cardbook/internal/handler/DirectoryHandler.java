@@ -55,7 +55,6 @@ public class DirectoryHandler extends CardBookHandler {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.getPath())));
                 result.add(content);
-
             } catch (IOException e) {
                 logger.warn("Error accessing CardDAV folder '{}' : {}", config.rootDirectory, e.getMessage());
             }

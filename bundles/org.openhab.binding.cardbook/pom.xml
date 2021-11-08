@@ -14,34 +14,39 @@
 
   <name>openHAB Add-ons :: Bundles :: Cardbook Module</name>
 
-  <properties>
-    <dep.noembedding>commons-codec</dep.noembedding>
-    <bnd.importpackage>commons-codec.*;resolution:="optional"</bnd.importpackage>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.googlecode.ez-vcard</groupId>
       <artifactId>ez-vcard</artifactId>
       <version>0.11.3</version>
       <scope>compile</scope>
+      <exclusions>
+
+        <!-- hCard functionality not needed -->
+        <exclusion>
+          <groupId>org.freemarker</groupId>
+          <artifactId>freemarker</artifactId>
+        </exclusion>
+          
+        <exclusion>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+        </exclusion>
+
+        <!-- jCard functionality not needed -->
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+        </exclusion>
+
+      </exclusions>
     </dependency>
+
+    <!-- dependencies of ez-vcard -->
     <dependency>
       <groupId>com.github.mangstadt</groupId>
       <artifactId>vinnie</artifactId>
       <version>2.0.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openhab.addons.bundles</groupId>
-      <artifactId>org.openhab.io.transport.webdav</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
-      <version>2.3.31</version>
       <scope>compile</scope>
     </dependency>
 
