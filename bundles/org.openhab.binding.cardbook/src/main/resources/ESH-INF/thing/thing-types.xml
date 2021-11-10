@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thing:thing-descriptions bindingId="cardbook"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
-	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+    xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
 	<thing-type id="carddav">
 		<label>CardDav</label>
 		<description>Provides access to vCard hosted on a WebDAV server</description>
@@ -29,6 +30,7 @@
 			</parameter>
 		</config-description>
 	</thing-type>
+	
 	<thing-type id="directory">
 		<label>Local Directory</label>
 		<description>Provides access to vCard hosted in a local directory</description>
