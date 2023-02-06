@@ -3,10 +3,10 @@ package net.sourceforge.jFuzzyLogic.membership.functions;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.fcl.FclObject;
 import net.sourceforge.jFuzzyLogic.membership.Value;
+import net.sourceforge.jFuzzyLogic.rule.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.rule.Gpr;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 /**
@@ -115,7 +115,6 @@ public abstract class MffFunction extends FclObject {
         }
 
         return vars;
-
     }
 
     @Override

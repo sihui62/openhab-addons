@@ -10,26 +10,29 @@ package net.sourceforge.jFuzzyLogic.ruleConnectionMethod;
  */
 public class RuleConnectionMethodAndDrastic extends RuleConnectionMethod {
 
-	private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndDrastic();
+    private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndDrastic();
 
-	public static RuleConnectionMethod get() {
-		return ruleConnectionMethod;
-	}
+    public static RuleConnectionMethod get() {
+        return ruleConnectionMethod;
+    }
 
-	private RuleConnectionMethodAndDrastic() {
-		super();
-		name = "and";
-	}
+    private RuleConnectionMethodAndDrastic() {
+        super();
+        name = "and";
+    }
 
-	@Override
-	public double connect(double antecedent1, double antecedent2) {
-		if (antecedent1 == 1) return antecedent2;
-		else if (antecedent2 == 1) return antecedent1;
-		else return 0;
-	}
+    @Override
+    public double connect(double antecedent1, double antecedent2) {
+        if (antecedent1 == 1)
+            return antecedent2;
+        else if (antecedent2 == 1)
+            return antecedent1;
+        else
+            return 0;
+    }
 
-	@Override
-	public String toStringFcl() {
-		return "AND : DMIN;";
-	}
+    @Override
+    public String toStringFcl() {
+        return "AND : DMIN;";
+    }
 }

@@ -1,4 +1,4 @@
-package net.sourceforge.jFuzzyLogic;
+package net.sourceforge.jFuzzyLogic.rule;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,9 +36,6 @@ import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionSingleton;
 import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionTrapetzoidal;
 import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionTriangular;
 import net.sourceforge.jFuzzyLogic.membership.Value;
-import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
-import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
-import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 /**
  * A complete inference system contains:
@@ -56,7 +53,7 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
 
     private final HashMap<String, RuleBlock> ruleBlocks = new HashMap<>(); // Several RuleBlocks indexed by name
     private final HashMap<String, Variable> variables = new HashMap<>(); // Every variable is here (key: VariableName)
-    private String name = ""; // Function block name
+    private final String name; // Function block name - set when reading the tree
 
     @Override
     public int compareTo(FunctionBlock fb) {
@@ -116,14 +113,14 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
      * @param tree : Tree to use
      * @return : RuleSet's name (or "" if no name)
      */
-    public String fclTree(Tree tree) {
+    public FunctionBlock(Tree tree) {
         Gpr.debug("Tree: " + tree.toStringTree());
         Gpr.checkRootNode("FUNCTION_BLOCK", tree);
         ruleBlocks.clear();
 
         boolean firstChild = true;
         int ruleBlockCount = 1;
-
+        String firstChildName = "";
         // Add every child
         for (int childNum = 0; childNum < tree.getChildCount(); childNum++) {
             Tree child = tree.getChild(childNum);
@@ -131,7 +128,7 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
             String leaveName = child.getText();
 
             if (firstChild) {
-                name = leaveName;
+                firstChildName = leaveName;
             } else if (leaveName.equalsIgnoreCase("VAR_INPUT")) {
                 fclTreeVariables(child);
             } else if (leaveName.equalsIgnoreCase("VAR_OUTPUT")) {
@@ -158,8 +155,7 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
 
             firstChild = false;
         }
-
-        return name;
+        name = firstChildName;
     }
 
     /**
@@ -632,10 +628,6 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
         return rbs;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * Set a variable
      *
@@ -649,8 +641,8 @@ public class FunctionBlock extends FclObject implements Iterable<RuleBlock>, Com
         var.setValue(value);
     }
 
-    private Variable addVariable(Variable variable) {
-        return Objects.requireNonNull(variables.put(variable.getName(), variable));
+    private void addVariable(Variable variable) {
+        variables.put(variable.getName(), variable);
     }
 
     public void setVariables(HashMap<String, Variable> variables2) {

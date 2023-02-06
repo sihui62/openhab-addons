@@ -29,5 +29,4 @@ public class RuleAccumulationMethodProbOr extends RuleAccumulationMethod {
     public String toStringFcl() {
         return "ACCU : PROBOR;";
     }
-
 }

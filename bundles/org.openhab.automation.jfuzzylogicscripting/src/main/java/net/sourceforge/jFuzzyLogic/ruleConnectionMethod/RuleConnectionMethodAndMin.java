@@ -30,5 +30,4 @@ public class RuleConnectionMethodAndMin extends RuleConnectionMethod {
     public String toStringFcl() {
         return "AND : MIN;";
     }
-
 }

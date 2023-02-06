@@ -11,12 +11,13 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 public abstract class Defuzzifier extends FclObject {
 
     /** Discrete defuzzifier (e.g. for singletons) */
-    protected boolean discrete;
+    private final boolean discrete;
     Variable variable;
 
     /** Constructor */
-    public Defuzzifier(Variable variable) {
+    public Defuzzifier(Variable variable, boolean discrete) {
         this.variable = variable;
+        this.discrete = discrete;
     }
 
     /**
@@ -60,13 +61,8 @@ public abstract class Defuzzifier extends FclObject {
         }
     }
 
-    public void setDiscrete(boolean discrete) {
-        this.discrete = discrete;
-    }
-
     @Override
     public String toString() {
         return getName();
     }
-
 }

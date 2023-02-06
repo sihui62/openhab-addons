@@ -51,5 +51,4 @@ public class ParameterRuleWeight extends Parameter {
         fuzzyRule.setWeight(value);
         return ok;
     }
-
 }

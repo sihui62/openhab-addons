@@ -10,24 +10,24 @@ package net.sourceforge.jFuzzyLogic.ruleConnectionMethod;
  */
 public class RuleConnectionMethodAndBoundedDif extends RuleConnectionMethod {
 
-	private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndBoundedDif();
+    private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndBoundedDif();
 
-	public static RuleConnectionMethod get() {
-		return ruleConnectionMethod;
-	}
+    public static RuleConnectionMethod get() {
+        return ruleConnectionMethod;
+    }
 
-	private RuleConnectionMethodAndBoundedDif() {
-		super();
-		name = "and";
-	}
+    private RuleConnectionMethodAndBoundedDif() {
+        super();
+        name = "and";
+    }
 
-	@Override
-	public double connect(double antecedent1, double antecedent2) {
-		return Math.max(0, antecedent1 + antecedent2 - 1);
-	}
+    @Override
+    public double connect(double antecedent1, double antecedent2) {
+        return Math.max(0, antecedent1 + antecedent2 - 1);
+    }
 
-	@Override
-	public String toStringFcl() {
-		return "AND : BDIFF;";
-	}
+    @Override
+    public String toStringFcl() {
+        return "AND : BDIFF;";
+    }
 }

@@ -139,7 +139,6 @@ public class FclParser extends Parser {
 
     public FclParser(TokenStream input, RecognizerSharedState state) {
         super(input, state);
-
     }
 
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
@@ -5236,5 +5235,4 @@ public class FclParser extends Parser {
             new long[] { 0x0000000000000000L, 0x0000000400000000L });
     public static final BitSet FOLLOW_REAL_in_with3582 = new BitSet(new long[] { 0x0000000000000002L });
     public static final BitSet FOLLOW_TYPE_REAL_in_data_type3591 = new BitSet(new long[] { 0x0000000000000002L });
-
 }

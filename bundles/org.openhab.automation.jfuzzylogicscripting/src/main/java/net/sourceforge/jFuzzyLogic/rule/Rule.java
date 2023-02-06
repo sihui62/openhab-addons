@@ -3,7 +3,6 @@ package net.sourceforge.jFuzzyLogic.rule;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.fcl.FclObject;
 import net.sourceforge.jFuzzyLogic.ruleAccumulationMethod.RuleAccumulationMethod;
 import net.sourceforge.jFuzzyLogic.ruleActivationMethod.RuleActivationMethod;
@@ -178,5 +177,4 @@ public class Rule extends FclObject {
 
         return "IF " + strAnt + " THEN " + strCon + (weight != 1.0 ? " WITH " + weight : "") + ";";
     }
-
 }

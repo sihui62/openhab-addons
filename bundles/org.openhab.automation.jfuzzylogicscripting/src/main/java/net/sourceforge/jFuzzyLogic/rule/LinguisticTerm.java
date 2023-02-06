@@ -50,5 +50,4 @@ public class LinguisticTerm extends FclObject implements Comparable<LinguisticTe
     public String toStringFcl() {
         return "TERM " + termName + " := " + membershipFunction.toStringFcl() + ";";
     }
-
 }

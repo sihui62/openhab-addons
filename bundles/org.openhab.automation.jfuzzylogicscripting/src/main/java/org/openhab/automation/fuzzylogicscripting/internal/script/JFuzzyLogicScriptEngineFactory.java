@@ -1,6 +1,6 @@
 package org.openhab.automation.fuzzylogicscripting.internal.script;
 
-import static net.sourceforge.jFuzzyLogic.Pcingola.*;
+import static org.openhab.automation.fuzzylogicscripting.internal.FuzzyLogicConstants.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +10,14 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.openhab.automation.fuzzylogicscripting.internal.compiler.CompilerService;
+import org.openhab.automation.fuzzylogicscripting.internal.compiler.FclCompilerService;
 
 public class JFuzzyLogicScriptEngineFactory implements ScriptEngineFactory {
     private static final String LANGUAGE_NAME = "Fuzzy Control Language";
     private static final String SHORT_NAME = "FCL";
-    private final CompilerService compilerService;
+    private final FclCompilerService compilerService;
 
-    public JFuzzyLogicScriptEngineFactory(@NonNull CompilerService compilerService) {
+    public JFuzzyLogicScriptEngineFactory(@NonNull FclCompilerService compilerService) {
         this.compilerService = compilerService;
     }
 
@@ -103,5 +103,4 @@ public class JFuzzyLogicScriptEngineFactory implements ScriptEngineFactory {
         n.add("application/x-fcl");
         MIME_TYPES = Collections.unmodifiableList(n);
     }
-
 }

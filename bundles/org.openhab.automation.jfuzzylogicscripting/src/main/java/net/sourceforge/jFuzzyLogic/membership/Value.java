@@ -4,10 +4,10 @@ import java.util.Objects;
 
 import org.antlr.runtime.tree.Tree;
 
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.fcl.FclLexer;
 import net.sourceforge.jFuzzyLogic.fcl.FclObject;
+import net.sourceforge.jFuzzyLogic.rule.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.rule.Gpr;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 /**

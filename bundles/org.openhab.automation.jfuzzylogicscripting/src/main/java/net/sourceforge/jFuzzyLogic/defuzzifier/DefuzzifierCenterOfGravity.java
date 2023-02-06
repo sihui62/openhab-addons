@@ -16,10 +16,10 @@ public class DefuzzifierCenterOfGravity extends DefuzzifierContinuous {
     /** Defuzification function */
     @Override
     public double defuzzify() {
-        double x = min, sum = 0, weightedSum = 0;
+        double x = getMin(), sum = 0, weightedSum = 0;
 
         // Calculate integrals (approximated as sums)
-        for (int i = 0; i < values.length; i++, x += stepSize) {
+        for (int i = 0; i < values.length; i++, x += getStepSize()) {
             sum += values[i];
             weightedSum += x * values[i];
         }
@@ -38,5 +38,4 @@ public class DefuzzifierCenterOfGravity extends DefuzzifierContinuous {
     public String toStringFcl() {
         return "METHOD : COG;";
     }
-
 }

@@ -10,24 +10,24 @@ package net.sourceforge.jFuzzyLogic.ruleConnectionMethod;
  */
 public class RuleConnectionMethodOrEinstein extends RuleConnectionMethod {
 
-	private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodOrEinstein();
+    private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodOrEinstein();
 
-	public static RuleConnectionMethod get() {
-		return ruleConnectionMethod;
-	}
+    public static RuleConnectionMethod get() {
+        return ruleConnectionMethod;
+    }
 
-	private RuleConnectionMethodOrEinstein() {
-		super();
-		name = "or";
-	}
+    private RuleConnectionMethodOrEinstein() {
+        super();
+        name = "or";
+    }
 
-	@Override
-	public double connect(double antecedent1, double antecedent2) {
-		return (antecedent1 + antecedent2) / (1 + antecedent1 * antecedent2);
-	}
+    @Override
+    public double connect(double antecedent1, double antecedent2) {
+        return (antecedent1 + antecedent2) / (1 + antecedent1 * antecedent2);
+    }
 
-	@Override
-	public String toStringFcl() {
-		return "OR: EINSTEIN;";
-	}
+    @Override
+    public String toStringFcl() {
+        return "OR: EINSTEIN;";
+    }
 }

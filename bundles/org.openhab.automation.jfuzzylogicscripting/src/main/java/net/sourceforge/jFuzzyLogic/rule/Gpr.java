@@ -1,4 +1,4 @@
-package net.sourceforge.jFuzzyLogic;
+package net.sourceforge.jFuzzyLogic.rule;
 
 import org.antlr.runtime.tree.Tree;
 import org.slf4j.Logger;
@@ -128,5 +128,4 @@ public class Gpr {
             Gpr.debug(warning, 2);
         }
     }
-
 }

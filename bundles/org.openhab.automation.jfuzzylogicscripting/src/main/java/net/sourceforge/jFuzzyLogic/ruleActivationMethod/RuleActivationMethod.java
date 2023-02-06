@@ -137,5 +137,4 @@ public abstract class RuleActivationMethod extends FclObject {
     public String toString() {
         return this.getClass().getName();
     }
-
 }

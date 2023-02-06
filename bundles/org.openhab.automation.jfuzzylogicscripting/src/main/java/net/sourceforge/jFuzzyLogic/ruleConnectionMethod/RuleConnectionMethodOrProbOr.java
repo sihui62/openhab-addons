@@ -10,24 +10,24 @@ package net.sourceforge.jFuzzyLogic.ruleConnectionMethod;
  */
 public class RuleConnectionMethodOrProbOr extends RuleConnectionMethod {
 
-	private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodOrProbOr();
+    private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodOrProbOr();
 
-	public static RuleConnectionMethod get() {
-		return ruleConnectionMethod;
-	}
+    public static RuleConnectionMethod get() {
+        return ruleConnectionMethod;
+    }
 
-	private RuleConnectionMethodOrProbOr() {
-		super();
-		name = "or";
-	}
+    private RuleConnectionMethodOrProbOr() {
+        super();
+        name = "or";
+    }
 
-	@Override
-	public double connect(double antecedent1, double antecedent2) {
-		return (antecedent1 + antecedent2 - antecedent1 * antecedent2);
-	}
+    @Override
+    public double connect(double antecedent1, double antecedent2) {
+        return (antecedent1 + antecedent2 - antecedent1 * antecedent2);
+    }
 
-	@Override
-	public String toStringFcl() {
-		return "OR: ASUM;";
-	}
+    @Override
+    public String toStringFcl() {
+        return "OR: ASUM;";
+    }
 }

@@ -19,7 +19,7 @@ import javax.script.ScriptEngine;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.openhab.automation.fuzzylogicscripting.internal.compiler.CompilerService;
+import org.openhab.automation.fuzzylogicscripting.internal.compiler.FclCompilerService;
 import org.openhab.automation.fuzzylogicscripting.internal.script.JFuzzyLogicScriptEngineFactory;
 import org.openhab.core.automation.module.script.AbstractScriptEngineFactory;
 import org.openhab.core.automation.module.script.ScriptEngineFactory;
@@ -39,7 +39,7 @@ public class FuzzyLogicFactory extends AbstractScriptEngineFactory {
     private final List<String> scriptTypes;
 
     @Activate
-    public FuzzyLogicFactory(@Reference CompilerService compilerService) {
+    public FuzzyLogicFactory(@Reference FclCompilerService compilerService) {
         this.factory = new JFuzzyLogicScriptEngineFactory(compilerService);
         this.scriptTypes = Stream.of(factory.getExtensions(), factory.getMimeTypes()).flatMap(List::stream).toList();
     }

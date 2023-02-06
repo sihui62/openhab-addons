@@ -2,18 +2,19 @@ package net.sourceforge.jFuzzyLogic.rule;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.defuzzifier.Defuzzifier;
 import net.sourceforge.jFuzzyLogic.fcl.FclObject;
 import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
@@ -28,17 +29,16 @@ public class Variable extends FclObject implements Comparable<Variable>, Iterabl
     private static final double EPSILON = 1e-6;
 
     private final String name; // Variable name
-    private final HashMap<String, LinguisticTerm> linguisticTerms = new HashMap<>(); // Terms for this variable
+    private final Map<String, LinguisticTerm> linguisticTerms = new HashMap<>(); // Terms for this variable
     private double defaultValue = Double.NaN; // Default value, when no change
     private double latestDefuzzifiedValue; // Latest defuzzified value
     private double universeMax = Double.NaN; // Universe max (range max)
     private double universeMin = Double.NaN; // Universe minimum (range minimum)
     private double value = Double.NaN; // Variable's value
-    private @Nullable String latestTerm;
     private @Nullable Defuzzifier defuzzifier; // Defuzzifier class
-    private @Nullable HashMap<Variable, Double> variableValues = null; // Terms may use variables, we need to keep track
-                                                                       // of values to know when universe needs to be
-                                                                       // updated
+    private @Nullable Map<Variable, Double> variableValues = null; // Terms may use variables, we need to keep track
+                                                                   // of values to know when universe needs to be
+                                                                   // updated
 
     /**
      * Default constructor
@@ -148,7 +148,7 @@ public class Variable extends FclObject implements Comparable<Variable>, Iterabl
         return lt;
     }
 
-    public HashMap<String, LinguisticTerm> getLinguisticTerms() {
+    public Map<String, LinguisticTerm> getLinguisticTerms() {
         return linguisticTerms;
     }
 
@@ -161,7 +161,6 @@ public class Variable extends FclObject implements Comparable<Variable>, Iterabl
     public MembershipFunction getMembershipFunction(String termName) {
         LinguisticTerm lt = linguisticTerms.get(termName);
         Objects.requireNonNull(lt, "No such linguistic term: '" + termName + "'");
-        latestTerm = termName;
         return lt.getMembershipFunction();
     }
 
@@ -290,7 +289,18 @@ public class Variable extends FclObject implements Comparable<Variable>, Iterabl
     }
 
     public @Nullable String getLatestTerm() {
-        return latestTerm;
+        Map<String, Double> memberShips = new HashMap<>();
+        linguisticTerms.keySet().forEach(term -> {
+            double value = getMembership(term);
+            if (value != 0) {
+                memberShips.put(term, value);
+            }
+        });
+
+        if (memberShips.isEmpty()) {
+            return null;
+        }
+        return Collections.max(memberShips.entrySet(), Comparator.comparingDouble(Map.Entry::getValue)).getKey();
     }
 
     @Override

@@ -29,5 +29,4 @@ public class RuleAccumulationMethodMax extends RuleAccumulationMethod {
     public String toStringFcl() {
         return "ACCU : MAX;";
     }
-
 }

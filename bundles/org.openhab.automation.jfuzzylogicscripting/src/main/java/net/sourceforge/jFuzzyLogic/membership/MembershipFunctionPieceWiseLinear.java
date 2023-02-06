@@ -126,7 +126,6 @@ public class MembershipFunctionPieceWiseLinear extends MembershipFunctionContinu
             return x[j].getValue();
         }
         return y[j].getValue();
-
     }
 
     /** Need to override this method (we store parameters differently in this function) */

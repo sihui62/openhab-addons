@@ -69,5 +69,4 @@ public class RuleTerm extends FclObject {
         }
         return variable.getName() + " " + is + " " + termName;
     }
-
 }

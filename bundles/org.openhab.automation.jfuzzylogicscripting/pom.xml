@@ -14,16 +14,12 @@
 
   <name>openHAB Add-ons :: Bundles :: Automation :: Fuzzy Logic Scripting</name>
 
-  <properties>
-    <dep.noembedding>net.sourceforge.jFuzzyLogic</dep.noembedding>
-  </properties>
-  
-          <dependencies>
-          <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
-            <version>3.2</version>
-          </dependency>
-        </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr-runtime</artifactId>
+      <version>3.2</version>
+    </dependency>
+  </dependencies>
 
 </project>

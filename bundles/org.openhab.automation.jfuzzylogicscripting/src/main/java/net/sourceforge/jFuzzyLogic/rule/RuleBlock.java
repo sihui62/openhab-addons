@@ -8,8 +8,6 @@ import java.util.List;
 
 import org.antlr.runtime.tree.Tree;
 
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.fcl.FclObject;
 import net.sourceforge.jFuzzyLogic.ruleAccumulationMethod.RuleAccumulationMethod;
 import net.sourceforge.jFuzzyLogic.ruleAccumulationMethod.RuleAccumulationMethodBoundedSum;

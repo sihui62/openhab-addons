@@ -10,24 +10,24 @@ package net.sourceforge.jFuzzyLogic.ruleConnectionMethod;
  */
 public class RuleConnectionMethodAndProduct extends RuleConnectionMethod {
 
-	private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndProduct();
+    private static RuleConnectionMethod ruleConnectionMethod = new RuleConnectionMethodAndProduct();
 
-	public static RuleConnectionMethod get() {
-		return ruleConnectionMethod;
-	}
+    public static RuleConnectionMethod get() {
+        return ruleConnectionMethod;
+    }
 
-	private RuleConnectionMethodAndProduct() {
-		super();
-		name = "and";
-	}
+    private RuleConnectionMethodAndProduct() {
+        super();
+        name = "and";
+    }
 
-	@Override
-	public double connect(double antecedent1, double antecedent2) {
-		return (antecedent1 * antecedent2);
-	}
+    @Override
+    public double connect(double antecedent1, double antecedent2) {
+        return (antecedent1 * antecedent2);
+    }
 
-	@Override
-	public String toStringFcl() {
-		return "AND : PROD;";
-	}
+    @Override
+    public String toStringFcl() {
+        return "AND : PROD;";
+    }
 }

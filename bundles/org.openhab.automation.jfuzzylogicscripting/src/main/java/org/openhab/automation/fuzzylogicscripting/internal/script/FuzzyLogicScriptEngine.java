@@ -8,18 +8,19 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 
-import org.openhab.automation.fuzzylogicscripting.internal.compiler.CompilerService;
+import org.openhab.automation.fuzzylogicscripting.internal.compiler.FclCompilerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FuzzyLogicScriptEngine implements ScriptEngine {
     private final Logger logger = LoggerFactory.getLogger(FuzzyLogicScriptEngine.class);
 
-    private final CompilerService compilerService;
+    private final FclCompilerService compilerService;
 
     private JFuzzyLogicScriptEngineFactory scriptEngineFactory;
 
-    public FuzzyLogicScriptEngine(CompilerService compilerService, JFuzzyLogicScriptEngineFactory scriptEngineFactory) {
+    public FuzzyLogicScriptEngine(FclCompilerService compilerService,
+            JFuzzyLogicScriptEngineFactory scriptEngineFactory) {
         this.compilerService = compilerService;
         this.scriptEngineFactory = scriptEngineFactory;
     }
@@ -100,13 +101,11 @@ public class FuzzyLogicScriptEngine implements ScriptEngine {
     public void setBindings(Bindings arg0, int arg1) {
         // TODO Auto-generated method stub
         logger.info("Ici");
-
     }
 
     @Override
     public void setContext(ScriptContext arg0) {
         // TODO Auto-generated method stub
         logger.info("Là");
-
     }
 }

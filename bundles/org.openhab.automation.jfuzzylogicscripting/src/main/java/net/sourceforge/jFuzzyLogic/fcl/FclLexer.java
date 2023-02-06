@@ -126,7 +126,6 @@ public class FclLexer extends Lexer {
 
     public FclLexer(CharStream input, RecognizerSharedState state) {
         super(input, state);
-
     }
 
     @Override
@@ -5911,7 +5910,6 @@ public class FclLexer extends Lexer {
                 break;
 
         }
-
     }
 
     protected DFA15 dfa15 = new DFA15(this);
@@ -6165,5 +6163,4 @@ public class FclLexer extends Lexer {
             return "1:1: Tokens : ( ABS | ACCU | ACT | AND | ASUM | BDIF | BSUM | COA | COSINE | COG | COGS | COGF | COS | DEFAULT | DEFUZZIFY | DMAX | DMIN | DSIGM | EINSTEIN | END_DEFUZZIFY | END_FUNCTION_BLOCK | END_FUZZIFY | END_RULEBLOCK | END_VAR | EXP | HAMACHER | FUNCTION | GAUSS | GAUSS2 | GBELL | FUNCTION_BLOCK | FUZZIFY | IF | IS | LM | LN | LOG | MAX | METHOD | MIN | NIPMIN | NIPMAX | MM | NC | NOT | NSUM | OR | PROBOR | PROD | RANGE | RM | RULE | RULEBLOCK | SIGM | SIN | SINGLETONS | SUM | TAN | TERM | THEN | TRAPE | TRIAN | TYPE_REAL | VAR_INPUT | VAR_OUTPUT | WITH | WS | NEWLINE | ASSIGN_OPERATOR | COLON | COMMA | DOT | DOTS | HAT | LEFT_CURLY | LEFT_PARENTHESIS | MINUS | PERCENT | PLUS | RIGHT_CURLY | RIGHT_PARENTHESIS | SEMICOLON | SLASH | STAR | REAL | COMMENT | COMMENT_C | COMMENT_SL | ID );";
         }
     }
-
 }
