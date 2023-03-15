@@ -22,7 +22,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Gaël L'hopital - Initial contribution
  */
 public class ResponseRoot {
-    public static enum ResponseStatus {
+    protected static enum ResponseStatus {
         @SerializedName("error")
         ERROR,
         @SerializedName("ok")

@@ -72,6 +72,22 @@ public enum Pollutant {
         ASTHMA;
     }
 
+    /**
+     * The {@link ConcentrationRange} is stores the range of a given physical measure associated with the corresponding
+     * AQI index.
+     */
+    public record ConcentrationRange(double min, double span, Index index) {
+
+        /*
+         * Computes the concentration corresponding to the index if contained in the range
+         *
+         * @return : a physical concentration or -1 if not in range
+         */
+        double getConcentration(double idx) {
+            return index.contains(idx) ? span / index.getSpan() * (idx - index.getMin()) + min : -1;
+        }
+    }
+
     public final Set<SensitiveGroup> sensitiveGroups;
     private final Unit<?> unit;
     private final Set<ConcentrationRange> breakpoints;

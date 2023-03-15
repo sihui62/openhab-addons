@@ -29,12 +29,12 @@ public class AirQualityException extends Exception {
     }
 
     public AirQualityException(String message, Object... params) {
-        super(String.format(message, params));
+        super(message.formatted(params));
     }
 
     @Override
     public @Nullable String getMessage() {
         String message = super.getMessage();
-        return message == null ? null : String.format("Rest call failed: message=%s", message);
+        return message == null ? null : "Rest call failed: message=%s".formatted(message);
     }
 }

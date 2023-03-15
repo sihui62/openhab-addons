@@ -26,6 +26,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import javax.measure.Unit;
+
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.openhab.binding.airquality.internal.AirQualityException;
@@ -67,11 +69,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link AirQualityStationHandler} is responsible for handling commands, which are
- * sent to one of the channels.
+ * The {@link AirQualityStationHandler} is responsible for handling commands, which are sent to one of the channels.
  *
  * @author Kuba Wolanin - Initial contribution
  * @author Łukasz Dywicki - Initial contribution
+ * @author Gaël L'hopital - OH4 modifications
  */
 @NonNullByDefault
 public class AirQualityStationHandler extends BaseThingHandler {
@@ -80,7 +82,7 @@ public class AirQualityStationHandler extends BaseThingHandler {
     private final TimeZoneProvider timeZoneProvider;
     private final LocationProvider locationProvider;
 
-    private @Nullable ScheduledFuture<?> refreshJob;
+    private Optional<ScheduledFuture<?>> refreshJob = Optional.empty();
 
     public AirQualityStationHandler(Thing thing, TimeZoneProvider timeZoneProvider, LocationProvider locationProvider) {
         super(thing);
@@ -100,8 +102,8 @@ public class AirQualityStationHandler extends BaseThingHandler {
         try {
             config.checkValid();
             freeRefreshJob();
-            refreshJob = scheduler.scheduleWithFixedDelay(this::updateAndPublishData, 0, config.refresh,
-                    TimeUnit.MINUTES);
+            refreshJob = Optional.of(
+                    scheduler.scheduleWithFixedDelay(this::updateAndPublishData, 0, config.refresh, TimeUnit.MINUTES));
         } catch (AirQualityException e) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, e.getMessage());
         }
@@ -163,11 +165,8 @@ public class AirQualityStationHandler extends BaseThingHandler {
     }
 
     private void freeRefreshJob() {
-        ScheduledFuture<?> job = this.refreshJob;
-        if (job != null && !job.isCancelled()) {
-            job.cancel(true);
-            refreshJob = null;
-        }
+        refreshJob.ifPresent(job -> job.cancel(true));
+        refreshJob = Optional.empty();
     }
 
     @Override
@@ -203,8 +202,8 @@ public class AirQualityStationHandler extends BaseThingHandler {
         Bridge bridge = this.getBridge();
         if (bridge != null && bridge.getStatus() == ThingStatus.ONLINE) {
             BridgeHandler handler = bridge.getHandler();
-            if (handler instanceof AirQualityBridgeHandler) {
-                return ((AirQualityBridgeHandler) handler).getApiBridge();
+            if (handler instanceof AirQualityBridgeHandler airQualityBridge) {
+                return airQualityBridge.getApiBridge();
             } else {
                 updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, "@text/incorrect-bridge");
             }
@@ -216,31 +215,25 @@ public class AirQualityStationHandler extends BaseThingHandler {
 
     private State indexedValue(String channelId, double idx, @Nullable Pollutant pollutant) {
         Index index = Index.find(idx);
-        if (index != null) {
-            switch (channelId) {
-                case INDEX:
-                    return new DecimalType(idx);
-                case VALUE:
-                    return pollutant != null ? pollutant.toQuantity(idx) : UnDefType.UNDEF;
-                case ICON:
-                    byte[] bytes = getResource(String.format("picto/%s.svg", index.getCategory().name().toLowerCase()));
-                    return bytes != null ? new RawType(bytes, "image/svg+xml") : UnDefType.UNDEF;
-                case COLOR:
-                    return index.getCategory().getColor();
-                case ALERT_LEVEL:
-                    return new DecimalType(index.getCategory().ordinal());
+        return switch (channelId) {
+            case INDEX -> new DecimalType(idx);
+            case VALUE -> pollutant != null ? pollutant.toQuantity(idx) : UnDefType.NULL;
+            case COLOR -> index.getCategory().getColor();
+            case ALERT_LEVEL -> new DecimalType(index.getCategory().ordinal());
+            case ICON -> {
+                byte[] bytes = getResource(index.getCategory().name().toLowerCase());
+                yield bytes != null ? new RawType(bytes, "image/svg+xml") : UnDefType.NULL;
             }
-        }
-        return UnDefType.UNDEF;
+            default -> throw new IllegalArgumentException("Unexpected value: " + channelId);
+        };
     }
 
     private State getSensitive(@Nullable SensitiveGroup sensitiveGroup, AirQualityData data) {
         if (sensitiveGroup != null) {
             int threshHold = Appreciation.UNHEALTHY_FSG.ordinal();
             for (Pollutant pollutant : Pollutant.values()) {
-                Index index = Index.find(data.getIaqiValue(pollutant));
-                if (index != null && pollutant.sensitiveGroups.contains(sensitiveGroup)
-                        && index.getCategory().ordinal() >= threshHold) {
+                if (pollutant.sensitiveGroups.contains(sensitiveGroup)
+                        && Index.find(data.getIaqiValue(pollutant)).getCategory().ordinal() >= threshHold) {
                     return OnOffType.ON;
                 }
             }
@@ -249,31 +242,24 @@ public class AirQualityStationHandler extends BaseThingHandler {
         return UnDefType.NULL;
     }
 
+    private State iaqiValueToState(AirQualityData data, String key, Unit<?> unit) {
+        double value = data.getIaqiValue(key);
+        return value != -1 ? new QuantityType<>(value, unit) : UnDefType.NULL;
+    }
+
     private State getValue(String channelId, @Nullable String groupId, AirQualityData data) {
-        switch (channelId) {
-            case TEMPERATURE:
-                double temp = data.getIaqiValue("t");
-                return temp != -1 ? new QuantityType<>(temp, SIUnits.CELSIUS) : UnDefType.NULL;
-            case PRESSURE:
-                double press = data.getIaqiValue("p");
-                return press != -1 ? new QuantityType<>(press, HECTO(SIUnits.PASCAL)) : UnDefType.NULL;
-            case HUMIDITY:
-                double hum = data.getIaqiValue("h");
-                return hum != -1 ? new QuantityType<>(hum, Units.PERCENT) : UnDefType.NULL;
-            case TIMESTAMP:
-                return data.getTime()
-                        .map(time -> (State) new DateTimeType(
-                                time.getObservationTime().withZoneSameLocal(timeZoneProvider.getTimeZone())))
-                        .orElse(UnDefType.NULL);
-            case DOMINENT:
-                return new StringType(data.getDominentPol());
-            case DEW_POINT:
-                double dp = data.getIaqiValue("dew");
-                return dp != -1 ? new QuantityType<>(dp, SIUnits.CELSIUS) : UnDefType.NULL;
-            case WIND_SPEED:
-                double w = data.getIaqiValue("w");
-                return w != -1 ? new QuantityType<>(w, Units.METRE_PER_SECOND) : UnDefType.NULL;
-            default:
+        return switch (channelId) {
+            case TEMPERATURE -> iaqiValueToState(data, "t", SIUnits.CELSIUS);
+            case PRESSURE -> iaqiValueToState(data, "p", HECTO(SIUnits.PASCAL));
+            case HUMIDITY -> iaqiValueToState(data, "h", Units.PERCENT);
+            case RELATIVE_HUMIDITY -> iaqiValueToState(data, "r", Units.PERCENT);
+            case DEW_POINT -> iaqiValueToState(data, "dew", SIUnits.CELSIUS);
+            case WIND_SPEED -> iaqiValueToState(data, "w", Units.METRE_PER_SECOND);
+            case TIMESTAMP -> data.getTime()
+                    .map(time -> (State) new DateTimeType(time.getObservationTime(timeZoneProvider.getTimeZone())))
+                    .orElse(UnDefType.NULL);
+            case DOMINENT -> new StringType(data.getDominentPol());
+            default -> {
                 if (groupId != null) {
                     double idx = -1;
                     Pollutant pollutant = null;
@@ -283,17 +269,18 @@ public class AirQualityStationHandler extends BaseThingHandler {
                         pollutant = Pollutant.valueOf(groupId.toUpperCase());
                         idx = data.getIaqiValue(pollutant);
                     }
-                    return indexedValue(channelId, idx, pollutant);
+                    yield indexedValue(channelId, idx, pollutant);
                 }
-                return UnDefType.NULL;
-        }
+                yield UnDefType.NULL;
+            }
+        };
     }
 
-    private byte @Nullable [] getResource(String iconPath) {
-        try (InputStream stream = classLoader.getResourceAsStream(iconPath)) {
+    private byte @Nullable [] getResource(String categoryName) {
+        try (InputStream stream = classLoader.getResourceAsStream("picto/%s.svg".formatted(categoryName))) {
             return stream != null ? stream.readAllBytes() : null;
         } catch (IOException e) {
-            logger.warn("Unable to load ressource '{}' : {}", iconPath, e.getMessage());
+            logger.warn("Unable to load ressource '{}' : {}", categoryName, e.getMessage());
         }
         return null;
     }

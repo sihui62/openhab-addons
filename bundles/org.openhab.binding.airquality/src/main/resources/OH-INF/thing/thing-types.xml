@@ -81,6 +81,10 @@
 			<channel id="temperature" typeId="system.outdoor-temperature"/>
 			<channel id="pressure" typeId="system.barometric-pressure"/>
 			<channel id="humidity" typeId="system.atmospheric-humidity"/>
+			<channel id="relative-humidity" typeId="system.atmospheric-humidity">
+				<label>Relative Humidity</label>
+				<description>The current relative humidity</description>
+			</channel>
 			<channel id="dew-point" typeId="dew-point"/>
 			<channel id="wind-speed" typeId="system.wind-speed"/>
 		</channels>

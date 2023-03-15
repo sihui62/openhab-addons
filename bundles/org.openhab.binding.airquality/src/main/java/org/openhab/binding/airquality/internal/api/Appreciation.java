@@ -31,7 +31,7 @@ public enum Appreciation {
     VERY_UNHEALTHY(143, 63, 151),
     HAZARDOUS(126, 0, 35);
 
-    private HSBType color;
+    private final HSBType color;
 
     Appreciation(int r, int g, int b) {
         this.color = HSBType.fromRGB(r, g, b);

@@ -15,7 +15,6 @@ package org.openhab.binding.airquality.internal.api;
 import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * The {@link Index} enum lists standard ranges of AQI indices
@@ -55,8 +54,9 @@ public enum Index {
         return min <= idx && idx <= max;
     }
 
-    public static @Nullable Index find(double idx) {
-        return Stream.of(Index.values()).filter(i -> i.contains(idx)).findFirst().orElse(null);
+    public static Index find(double idx) {
+        return Stream.of(Index.values()).filter(i -> i.contains(idx)).findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public Appreciation getCategory() {

@@ -12,6 +12,7 @@
  */
 package org.openhab.binding.airquality.internal.api.dto;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -30,9 +31,11 @@ public class AirQualityTime {
     /**
      * Get observation time
      *
+     * @param zoneId
+     *
      * @return {ZonedDateTime}
      */
-    public ZonedDateTime getObservationTime() throws DateTimeParseException {
-        return ZonedDateTime.parse(iso);
+    public ZonedDateTime getObservationTime(ZoneId zoneId) throws DateTimeParseException {
+        return ZonedDateTime.parse(iso).withZoneSameLocal(zoneId);
     }
 }

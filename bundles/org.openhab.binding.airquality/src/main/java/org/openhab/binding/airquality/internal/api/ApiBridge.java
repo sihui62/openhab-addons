@@ -53,8 +53,8 @@ public class ApiBridge {
      * @throws AirQualityException
      */
     private String buildRequestURL(String key, int stationId, String location) {
-        String geoStr = stationId != 0 ? String.format("@%d", stationId)
-                : String.format("geo:%s",
+        String geoStr = stationId != 0 ? "@%d".formatted(stationId)
+                : "geo:%s".formatted(
                         location.replace(" ", "").replace(",", ";").replace("\"", "").replace("'", "").trim());
 
         return URL.replace("%apiKey%", key).replace("%query%", geoStr);

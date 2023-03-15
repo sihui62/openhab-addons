@@ -32,7 +32,8 @@ public class AirQualityConfiguration {
 
     public void checkValid() throws AirQualityException {
         if (location.trim().isEmpty() && stationId == 0) {
-            throw new AirQualityException("Either 'location' or 'stationId' is mandatory and must be configured");
+            throw new AirQualityException("Either '%s' or '%s' is mandatory and must be configured", LOCATION,
+                    STATION_ID);
         }
         if (refresh < 30) {
             throw new AirQualityException("Parameter 'refresh' must be at least 30 minutes");

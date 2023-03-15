@@ -42,6 +42,7 @@ public class AirQualityBindingConstants {
     public static final String TEMPERATURE = "temperature";
     public static final String PRESSURE = "pressure";
     public static final String HUMIDITY = "humidity";
+    public static final String RELATIVE_HUMIDITY = "relative-humidity";
     public static final String DEW_POINT = "dew-point";
     public static final String WIND_SPEED = "wind-speed";
     public static final String TIMESTAMP = "timestamp";

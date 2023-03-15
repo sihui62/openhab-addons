@@ -13,7 +13,7 @@
 package org.openhab.binding.airquality.internal.handler;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Set;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -29,8 +29,7 @@ import org.openhab.core.thing.binding.ThingHandlerService;
 import org.openhab.core.types.Command;
 
 /**
- * The {@link AirQualityBridgeHandler} is responsible for handling communication
- * with the service via the API.
+ * The {@link AirQualityBridgeHandler} is responsible for handling communication with the service via the API.
  *
  * @author Gaël L'hopital - Initial contribution
  */
@@ -47,13 +46,20 @@ public class AirQualityBridgeHandler extends BaseBridgeHandler {
     @Override
     public void initialize() {
         String apiKey = (String) getConfig().get("apiKey");
-        if (apiKey != null && apiKey.length() != 0) {
-            apiBridge = new ApiBridge(apiKey);
-            updateStatus(ThingStatus.ONLINE);
-        } else {
-            apiBridge = null;
+        if (apiKey == null || apiKey.isBlank()) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, "@text/null-or-empty-api-key");
+            return;
         }
+        apiBridge = new ApiBridge(apiKey);
+        updateStatus(ThingStatus.ONLINE);
+    }
+
+    public @Nullable ApiBridge getApiBridge() {
+        return apiBridge;
+    }
+
+    public LocationProvider getLocationProvider() {
+        return locationProvider;
     }
 
     @Override
@@ -61,16 +67,8 @@ public class AirQualityBridgeHandler extends BaseBridgeHandler {
         // We do nothing
     }
 
-    public @Nullable ApiBridge getApiBridge() {
-        return apiBridge;
-    }
-
     @Override
     public Collection<Class<? extends ThingHandlerService>> getServices() {
-        return Collections.singleton(AirQualityDiscoveryService.class);
-    }
-
-    public LocationProvider getLocationProvider() {
-        return locationProvider;
+        return Set.of(AirQualityDiscoveryService.class);
     }
 }

@@ -12,15 +12,14 @@
  */
 package org.openhab.binding.airquality.internal.api.dto;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
 /**
- * The {@link AirQualityCity} is responsible for storing
- * the "city" node from the waqi.org JSON response
+ * The {@link AirQualityCity} is responsible for storing the "city" node from the waqi.org JSON response
  *
  * @author Kuba Wolanin - Initial contribution
  */
@@ -28,7 +27,7 @@ import org.eclipse.jdt.annotation.Nullable;
 public class AirQualityCity {
     private String name = "";
     private @Nullable String url;
-    private List<Double> geo = List.of();
+    private double[] geo = {};
 
     public String getName() {
         return name;
@@ -39,6 +38,6 @@ public class AirQualityCity {
     }
 
     public String getGeo() {
-        return geo.stream().map(Object::toString).collect(Collectors.joining(", "));
+        return Arrays.stream(geo).mapToObj(Double::toString).collect(Collectors.joining(", "));
     }
 }
