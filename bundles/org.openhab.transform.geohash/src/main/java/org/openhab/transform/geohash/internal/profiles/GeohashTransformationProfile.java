@@ -31,19 +31,20 @@ import org.slf4j.LoggerFactory;
  * Profile to offer the GeohashTransformationservice on a ItemChannelLink
  *
  * @author Gaël L'hopital - initial contribution
- *
  */
 @NonNullByDefault
 public class GeohashTransformationProfile implements StateProfile {
 
     public static final ProfileTypeUID PROFILE_TYPE_UID = new ProfileTypeUID(
             TransformationService.TRANSFORM_PROFILE_SCOPE, "GEOHASH");
-    private static final String PRECISION_PARAM = "precision";
-    private static final String SOURCE_FORMAT_PARAM = "sourceFormat";
 
     private final Logger logger = LoggerFactory.getLogger(GeohashTransformationProfile.class);
+
     private final TransformationService service;
     private final ProfileCallback callback;
+
+    private static final String PRECISION_PARAM = "precision";
+    private static final String SOURCE_FORMAT_PARAM = "sourceFormat";
 
     private final @NonNullByDefault({}) String precision;
     private final @NonNullByDefault({}) String sourceFormat;
@@ -66,11 +67,11 @@ public class GeohashTransformationProfile implements StateProfile {
         if (paramPrecision == null) {
             paramPrecision = "6";
         }
-        if (paramPrecision instanceof String && paramSource instanceof String) {
-            precision = (String) paramPrecision;
-            sourceFormat = (String) paramSource;
+        if (paramPrecision instanceof String pPrecision && paramSource instanceof String pSource) {
+            precision = pPrecision;
+            sourceFormat = pSource;
         } else {
-            logger.warn("Parameter '{}' and '{}' have to be Strings. Profile will be inactive.", PRECISION_PARAM,
+            logger.error("Parameter '{}' and '{}' have to be Strings. Profile will be inactive.", PRECISION_PARAM,
                     SOURCE_FORMAT_PARAM);
             precision = null;
             sourceFormat = null;

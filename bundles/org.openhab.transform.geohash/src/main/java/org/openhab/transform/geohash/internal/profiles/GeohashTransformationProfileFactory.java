@@ -12,8 +12,8 @@
  */
 package org.openhab.transform.geohash.internal.profiles;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
@@ -27,11 +27,12 @@ import org.openhab.core.thing.profiles.ProfileTypeBuilder;
 import org.openhab.core.thing.profiles.ProfileTypeProvider;
 import org.openhab.core.thing.profiles.ProfileTypeUID;
 import org.openhab.core.transform.TransformationService;
+import org.openhab.transform.geohash.internal.GeohashTransformationService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * Profilefactory that creates the transformation profile for the geohash transformation service
+ * {@link ProfileFactory} that creates the transformation profile for the {@link GeohashTransformationService}.
  *
  * @author Gaël L'hopital - initial contribution
  *
@@ -45,7 +46,7 @@ public class GeohashTransformationProfileFactory implements ProfileFactory, Prof
 
     @Override
     public Collection<ProfileType> getProfileTypes(@Nullable Locale locale) {
-        return Arrays.asList(ProfileTypeBuilder.newState(GeohashTransformationProfile.PROFILE_TYPE_UID,
+        return List.of(ProfileTypeBuilder.newState(GeohashTransformationProfile.PROFILE_TYPE_UID,
                 GeohashTransformationProfile.PROFILE_TYPE_UID.getId()).build());
     }
 
@@ -57,10 +58,10 @@ public class GeohashTransformationProfileFactory implements ProfileFactory, Prof
 
     @Override
     public Collection<ProfileTypeUID> getSupportedProfileTypeUIDs() {
-        return Arrays.asList(GeohashTransformationProfile.PROFILE_TYPE_UID);
+        return List.of(GeohashTransformationProfile.PROFILE_TYPE_UID);
     }
 
-    @Reference(target = "(smarthome.transform=GEOHASH)")
+    @Reference(target = "(openhab.transform=GEOHASH)")
     public void addTransformationService(TransformationService service) {
         this.service = service;
     }
