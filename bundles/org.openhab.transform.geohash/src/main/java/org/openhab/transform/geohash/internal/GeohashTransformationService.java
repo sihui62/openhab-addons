@@ -45,11 +45,10 @@ public class GeohashTransformationService implements TransformationService {
                     return GeoHash.withCharacterPrecision(point.getLatitude().doubleValue(),
                             point.getLongitude().doubleValue(), numcar).toBase32();
                 } else {
-                    throw new TransformationException("Valid range for Precision is [1,12]: '{}'".formatted(precision));
+                    throw new TransformationException("Valid range for precision is [1,12]: '%s'".formatted(precision));
                 }
             } catch (NumberFormatException e) {
-                throw new TransformationException(
-                        "The value '{}' is not valid precision level: {}".formatted(precision));
+                throw new TransformationException("'%s' is not valid precision.".formatted(precision));
             }
         } catch (IllegalArgumentException e) {
             try {
@@ -59,7 +58,7 @@ public class GeohashTransformationService implements TransformationService {
                         new DecimalType(centerPoint.getLongitude())).toString();
             } catch (NullPointerException e2) {
                 throw new TransformationException(
-                        "The value '{}' is not valid geohash nor a valid coordinate expression".formatted(coordinates));
+                        "'%s' is not valid geohash nor a valid coordinate expression".formatted(coordinates));
             }
         }
     }
