@@ -1,4 +1,4 @@
-<img src="/images/landroid.svg">
+<img src="images/landroid.svg">
 
 # WorxLandroid Binding
 
