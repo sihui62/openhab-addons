@@ -2,7 +2,7 @@
 
 # WorxLandroid Binding
 
-This is the binding for Worx Landroid robotic lawn mowers. It connects openHAB with your WorxLandroid Mower using the API and MQTT. This binding allows you to integrate, view and control supported Worx lawn mowers in the openHAB environment.
+This is the binding for Worx Landroid robotic lawn mowers. It connects openHAB with your WorxLandroid mower using the API and MQTT. This binding allows you to integrate, view and control supported Worx lawn mowers in the openHAB environment.
 
 ## Supported Things
 
@@ -13,7 +13,7 @@ Currently following Things are supported:
 
 ## Discovery
 
-A Bridge is required to connect to the Worx API. Here you can provide your credentials for your WorxLandroid account. Once the Bridge has been added Worx Landroid Mowers will be discovered automatically.
+A Bridge is required to connect to the Worx API. Here you can provide your credentials for your WorxLandroid account. Once the Bridge has been added Worx Landroid mowers will be discovered automatically.
 
 ## Binding Configuration
 
@@ -25,16 +25,16 @@ Following options can be set for the **Bridge Worx Landroid API**:
 | password          | Password to access the WorxLandroid API.                                                                                                  |
 
 
-Following options can be set for the **WorxLandroid Mower**:
+Following options can be set for the **Landroid Mower**:
 
 | Property              | Description                                                                                            |
 |-----------------------|--------------------------------------------------------------------------------------------------------|
-| serialNumber          | Serial Number of the mower                                                                             |
+| serialNumber          | Serial number of the mower                                                                             |
 | refreshStatusInterval | Interval for refreshing mower status (ONLINE/OFFLINE) and channel 'common#online' in seconds (min="30")|
 | pollingInterval       | Interval for polling in seconds (min="30" max="7200").                                                 |
 
 
-In order to prevent a 24h ban from worx, the following recommended settings seem to work:
+In order to prevent a 24h ban from Worx, the following recommended settings seem to work:
 | Property              | Value |
 |-----------------------|-------|
 | refreshStatusInterval |  1200 |
@@ -68,9 +68,9 @@ Currently following **Channels** are supported on the **Landroid Mower**:
 
 ##### multi-zones
 
-If Multi Zones are supported, you are able to define 4 separate Zones and split working times by 10 to those.
+If Multi Zones are supported, you are able to define 4 separate zones and split working times by 10 to those.
 
-To ease Zone Configuration, you are able to set distance in meters where a specific Zone starts. Bearing in mind that you roughly shall know how many meters of cable have been used (without buffer).
+To ease zone configuration, you are able to set distance in meters where a specific zone starts. Bearing in mind that you roughly shall know how many meters of cable have been used (without buffer).
 
 As second step you are able to set time in percent and split in parts of 10 between allocation zones.
 
