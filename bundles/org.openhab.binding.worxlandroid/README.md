@@ -362,7 +362,7 @@ DateTime                   LandroidMowerScheduleNextStop           "Next stop"  
 
 
 
-Switch                     LandroidMowerAwsPoll                    "Poll aws"                  {channel="worxlandroid:mower:MyWorxBridge:mymower:aws#poll"}
+Switch                     LandroidMowerAwsPoll                    "Poll AWS"                  {channel="worxlandroid:mower:MyWorxBridge:mymower:aws#poll"}
 Switch                     LandroidMowerAwsConnected               "Connected"                 {channel="worxlandroid:mower:MyWorxBridge:mymower:aws#connected"}
 
 
@@ -432,7 +432,7 @@ Number:Time                LandroidMowerOneTimeDuration            "Duration"   
 
 Number:Temperature         LandroidMowerBatteryTemperature         "Battery temperature"       {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#temperature"}
 Number:ElectricPotential   LandroidMowerBatteryVoltage             "Battery voltage"           {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#voltage"}
-Number                     LandroidMowerBatteryLevel               "Batterieladung"            {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#level"}
+Number                     LandroidMowerBatteryLevel               "Battery level"             {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#level"}
 Number                     LandroidMowerBatteryChargeCycles        "Current charge cycles"     {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#charge-cycles"}
 Number                     LandroidMowerBatteryChargeCyclesTotal   "Total charge cycles"       {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#charge-cycles-total"}
 Switch                     LandroidMowerBatteryCharging            "Battery charging"          {channel="worxlandroid:mower:MyWorxBridge:mymower:battery#charging"}
@@ -461,5 +461,5 @@ Number:Time                LandroidMowerRainDelay                  "Delay"      
 
 
 Number:Power               LandroidMowerWifiRssi                   "Rssi"                      {channel="worxlandroid:mower:MyWorxBridge:mymower:wifi#rssi"}
-Number                     LandroidMowerWifiWifiQuality            "Signalstärke"              {channel="worxlandroid:mower:MyWorxBridge:mymower:wifi#wifi-quality"}
+Number                     LandroidMowerWifiWifiQuality            "Wifi quality"              {channel="worxlandroid:mower:MyWorxBridge:mymower:wifi#wifi-quality"}
 ```
