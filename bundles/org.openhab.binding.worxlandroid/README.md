@@ -321,6 +321,7 @@ As second step you are able to set time in percent and split in parts of 10 betw
 ### landroid.items
 
 ```
+String                     MyMower                                 "MyMower [%s]"
 String                     LandroidMowerCommonStatus               "Status code"               {channel="worxlandroid:mower:MyWorxBridge:mymower:common#status"}
 String                     LandroidMowerCommonError                "Error code"                {channel="worxlandroid:mower:MyWorxBridge:mymower:common#error"}
 Switch                     LandroidMowerCommonOnline               "Online"                    {channel="worxlandroid:mower:MyWorxBridge:mymower:common#online"}
@@ -575,3 +576,74 @@ sitemap landroid label="Landroid"
 
 ```
 
+### landroid.rules
+
+```
+
+rule "Landroid mower status"
+when
+  Item LandroidMowerCommonError changed or
+  Item LandroidMowerCommonStatus changed
+then
+  if (LandroidMowerCommonError.state != "NO_ERR") {
+    MyMower.postUpdate(transform("MAP", "landroid_error_de.map", LandroidMowerCommonError.state.toString))
+  } else {
+    MyMower.postUpdate(transform("MAP", "landroid_status_de.map", LandroidMowerCommonStatus.state.toString))
+  }
+end
+
+```
+
+### $OH_HOME/transform/landroid_error_de.map
+
+```
+
+UNKNOWN=unknown
+NO_ERR=no error
+TRAPPED=trapped
+LIFTED=lifted
+WIRE_MISSING=wire missing
+OUTSIDE_WIRE=outside wire
+RAINING=raining
+CLOSE_DOOR_TO_MOW=close door to mow
+CLOSE_DOOR_TO_GO_HOME=close door to go home
+BLADE_MOTOR_BLOCKED=blade motor blocked
+WHEEL_MOTOR_BLOKED=wheel motor blocked
+TRAPPED_TIMEOUT=trapped timeout
+UPSIDE_DOWN=upside down
+BATTERY_LOW=battery low
+REVERSE_WIRE=reverse wire
+CHARGE_ERROR=charge errir
+TIMEOUT_FINDING_HOME=timeout finding home
+MOWER_LOCKED=mower locked
+BATTERY_OVER_TEMPERATURE=batter over temperature
+MOWER_OUTSIDE_WIRE=mower outside wire
+
+```
+
+### $OH_HOME/transform/landroid_status_de.map
+
+```
+
+UNKNOWN=unknown
+IDLE=idle
+HOME=home
+START_SEQUENCE=start sequence
+LEAVING_HOME=leaving home
+FOLLOW_WIRE=follow wire
+SEARCHING_HOME=searching home
+SEARCHING_WIRE=searching wire
+MOWING=mowing
+LIFTED=lifted
+TRAPPED=trapped
+BLADE_BLOCKED=blade blocked
+DEBUG=debug
+REMOTE_CONTROL=remote control
+GOING_HOME=going home
+ZONE_TRAINING=zone training
+BORDER_CUT=border cut
+SEARCHING_ZONE=searching zone
+PAUSE=pause
+MANUEL_STOP=manuel stop
+
+```
