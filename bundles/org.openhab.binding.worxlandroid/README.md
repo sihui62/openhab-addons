@@ -49,15 +49,15 @@ Currently following **Channels** are supported on the **Landroid Mower**:
 
 ##### common
 
-| Channel          | Type       | ChannelName             | Values            |
-|------------------|------------|-------------------------|-------------------|
-| status           | `String`   | common#status           | *1 (see below)    |
-| error            | `String`   | common#error            | *2 (see below)    |
-| online           | `Switch`   | common#online           |                   |
-| online-timestamp | `DateTime` | common#online-timestamp |                   |
-| action           | `String`   | common#action           | START, STOP, HOME |
-| enable           | `Switch`   | common#enable           |                   |
-| lock             | `Switch`   | common#lock             |                   |
+| Channel          | Type     | ChannelName             | Values            |
+|------------------|----------|-------------------------|-------------------|
+| status           | String   | common#status           | *1 (see below)    |
+| error            | String   | common#error            | *2 (see below)    |
+| online           | Switch   | common#online           |                   |
+| online-timestamp | DateTime | common#online-timestamp |                   |
+| action           | String   | common#action           | START, STOP, HOME |
+| enable           | Switch   | common#enable           |                   |
+| lock             | Switch   | common#lock             |                   |
 
 *1: Values for **error** Channel:
 
@@ -69,10 +69,10 @@ UNKNOWN, IDLE, HOME, START_SEQUENCE, LEAVING_HOME, FOLLOW_WIRE, SEARCHING_HOME, 
 
 ##### config
 
-| Channel   | Type       | ChannelName      |
-|-----------|------------|------------------|
-| timestamp | `DateTime` | config#timestamp |
-| command   | `Number`   | config#command   |
+| Channel   | Type     | ChannelName      |
+|-----------|----------|------------------|
+| timestamp | DateTime | config#timestamp |
+| command   | Number   | config#command   |
 
 ##### multi-zones
 
@@ -82,243 +82,243 @@ To ease zone configuration, you are able to set distance in meters where a speci
 
 As second step you are able to set time in percent and split in parts of 10 between allocation zones.
 
-| Channel      | Type            | ChannelName              |
-|--------------|-----------------|--------------------------|
-| enable       | `Switch`        | multi-zones#enable       |
-| last-zone    | `Number`        | multi-zones#last-zone    |
-| zone-1       | `Number:Length` | multi-zones#zone-1       |
-| zone-2       | `Number:Length` | multi-zones#zone-2       |
-| zone-3       | `Number:Length` | multi-zones#zone-3       |
-| zone-4       | `Number:Length` | multi-zones#zone-4       |
-| allocation-0 | `Number`        | multi-zones#allocation-0 |
-| allocation-1 | `Number`        | multi-zones#allocation-1 |
-| allocation-2 | `Number`        | multi-zones#allocation-2 |
-| allocation-3 | `Number`        | multi-zones#allocation-3 |
-| allocation-4 | `Number`        | multi-zones#allocation-4 |
-| allocation-5 | `Number`        | multi-zones#allocation-5 |
-| allocation-6 | `Number`        | multi-zones#allocation-6 |
-| allocation-7 | `Number`        | multi-zones#allocation-7 |
-| allocation-8 | `Number`        | multi-zones#allocation-8 |
-| allocation-9 | `Number`        | multi-zones#allocation-9 |
+| Channel      | Type          | ChannelName              |
+|--------------|---------------|--------------------------|
+| enable       | Switch        | multi-zones#enable       |
+| last-zone    | Number        | multi-zones#last-zone    |
+| zone-1       | Number:Length | multi-zones#zone-1       |
+| zone-2       | Number:Length | multi-zones#zone-2       |
+| zone-3       | Number:Length | multi-zones#zone-3       |
+| zone-4       | Number:Length | multi-zones#zone-4       |
+| allocation-0 | Number        | multi-zones#allocation-0 |
+| allocation-1 | Number        | multi-zones#allocation-1 |
+| allocation-2 | Number        | multi-zones#allocation-2 |
+| allocation-3 | Number        | multi-zones#allocation-3 |
+| allocation-4 | Number        | multi-zones#allocation-4 |
+| allocation-5 | Number        | multi-zones#allocation-5 |
+| allocation-6 | Number        | multi-zones#allocation-6 |
+| allocation-7 | Number        | multi-zones#allocation-7 |
+| allocation-8 | Number        | multi-zones#allocation-8 |
+| allocation-9 | Number        | multi-zones#allocation-9 |
 
 
 ##### schedule
 
-| Channel        | Type       | ChannelName             |                   |
-|----------------|------------|-------------------------|-------------------|
-| mode           | `String`   | schedule#mode           | ONLY IF SUPPORTED |
-| time-extension | `Number`   | schedule#time-extension |                   |
-| next-start     | `DateTime` | schedule#next-start     |                   |
-| next-stop      | `DateTime` | schedule#next-stop      |                   |
+| Channel        | Type     | ChannelName             |                   |
+|----------------|----------|-------------------------|-------------------|
+| mode           | String   | schedule#mode           | ONLY IF SUPPORTED |
+| time-extension | Number   | schedule#time-extension |                   |
+| next-start     | DateTime | schedule#next-start     |                   |
+| next-stop      | DateTime | schedule#next-stop      |                   |
 
 
 ##### aws
 
-| Channel   | Type     | ChannelName   |
-|-----------|----------|---------------|
-| poll      | `Switch` | aws#poll      |
-| connected | `Switch` | aws#connected |
+| Channel   | Type   | ChannelName   |
+|-----------|--------|---------------|
+| poll      | Switch | aws#poll      |
+| connected | Switch | aws#connected |
 
 
 ##### sunday (Slot 1)
 
-| Channel  | Type          | ChannelName     |
-|----------|---------------|-----------------|
-| enable   | `Switch`      | sunday#enable   |
-| time     | `DateTime`    | sunday#time     |
-| duration | `Number:Time` | sunday#duration |
-| edgecut  | `Switch`      | sunday#edgecut  |
+| Channel  | Type        | ChannelName     |
+|----------|-------------|-----------------|
+| enable   | Switch      | sunday#enable   |
+| time     | DateTime    | sunday#time     |
+| duration | Number:Time | sunday#duration |
+| edgecut  | Switch      | sunday#edgecut  |
 
 
 ##### sunday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName      |
-|----------|---------------|------------------|
-| enable   | `Switch`      | sunday2#enable   |
-| time     | `DateTime`    | sunday2#time     |
-| duration | `Number:Time` | sunday2#duration |
-| edgecut  | `Switch`      | sunday2#edgecut  |
+| Channel  | Type        | ChannelName      |
+|----------|-------------|------------------|
+| enable   | Switch      | sunday2#enable   |
+| time     | DateTime    | sunday2#time     |
+| duration | Number:Time | sunday2#duration |
+| edgecut  | Switch      | sunday2#edgecut  |
 
 
 ##### monday (Slot 1)
 
-| Channel  | Type          | ChannelName     |
-|----------|---------------|-----------------|
-| enable   | `Switch`      | monday#enable   |
-| time     | `DateTime`    | monday#time     |
-| duration | `Number:Time` | monday#duration |
-| edgecut  | `Switch`      | monday#edgecut  |
+| Channel  | Type        | ChannelName     |
+|----------|-------------|-----------------|
+| enable   | Switch      | monday#enable   |
+| time     | DateTime    | monday#time     |
+| duration | Number:Time | monday#duration |
+| edgecut  | Switch      | monday#edgecut  |
 
 
 ##### monday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName      |
-|----------|---------------|------------------|
-| enable   | `Switch`      | monday2#enable   |
-| time     | `DateTime`    | monday2#time     |
-| duration | `Number:Time` | monday2#duration |
-| edgecut  | `Switch`      | monday2#edgecut  |
+| Channel  | Type        | ChannelName      |
+|----------|-------------|------------------|
+| enable   | Switch      | monday2#enable   |
+| time     | DateTime    | monday2#time     |
+| duration | Number:Time | monday2#duration |
+| edgecut  | Switch      | monday2#edgecut  |
 
 
 ##### tuesday (Slot 1)
 
-| Channel  | Type          | ChannelName      |
-|----------|---------------|------------------|
-| enable   | `Switch`      | tuesday#enable   |
-| time     | `DateTime`    | tuesday#time     |
-| duration | `Number:Time` | tuesday#duration |
-| edgecut  | `Switch`      | tuesday#edgecut  |
+| Channel  | Type        | ChannelName      |
+|----------|-------------|------------------|
+| enable   | Switch      | tuesday#enable   |
+| time     | DateTime    | tuesday#time     |
+| duration | Number:Time | tuesday#duration |
+| edgecut  | Switch      | tuesday#edgecut  |
 
 
 ##### tuesday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName       |
-|----------|---------------|-------------------|
-| enable   | `Switch`      | tuesday2#enable   |
-| time     | `DateTime`    | tuesday2#time     |
-| duration | `Number:Time` | tuesday2#duration |
-| edgecut  | `Switch`      | tuesday2#edgecut  |
+| Channel  | Type        | ChannelName       |
+|----------|-------------|-------------------|
+| enable   | Switch      | tuesday2#enable   |
+| time     | DateTime    | tuesday2#time     |
+| duration | Number:Time | tuesday2#duration |
+| edgecut  | Switch      | tuesday2#edgecut  |
 
 
 ##### wednesday (Slot 1)
 
-| Channel  | Type          | ChannelName        |
-|----------|---------------|--------------------|
-| enable   | `Switch`      | wednesday#enable   |
-| time     | `DateTime`    | wednesday#time     |
-| duration | `Number:Time` | wednesday#duration |
-| edgecut  | `Switch`      | wednesday#edgecut  |
+| Channel  | Type        | ChannelName        |
+|----------|-------------|--------------------|
+| enable   | Switch      | wednesday#enable   |
+| time     | DateTime    | wednesday#time     |
+| duration | Number:Time | wednesday#duration |
+| edgecut  | Switch      | wednesday#edgecut  |
 
 
 ##### wednesday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName         |
-|----------|---------------|---------------------|
-| enable   | `Switch`      | wednesday2#enable   |
-| time     | `DateTime`    | wednesday2#time     |
-| duration | `Number:Time` | wednesday2#duration |
-| edgecut  | `Switch`      | wednesday2#edgecut  |
+| Channel  | Type        | ChannelName         |
+|----------|-------------|---------------------|
+| enable   | Switch      | wednesday2#enable   |
+| time     | DateTime    | wednesday2#time     |
+| duration | Number:Time | wednesday2#duration |
+| edgecut  | Switch      | wednesday2#edgecut  |
 
 
 ##### thursday (Slot 1)
 
-| Channel  | Type          | ChannelName       |
-|----------|---------------|-------------------|
-| enable   | `Switch`      | thursday#enable   |
-| time     | `DateTime`    | thursday#time     |
-| duration | `Number:Time` | thursday#duration |
-| edgecut  | `Switch`      | thursday#edgecut  |
+| Channel  | Type        | ChannelName       |
+|----------|-------------|-------------------|
+| enable   | Switch      | thursday#enable   |
+| time     | DateTime    | thursday#time     |
+| duration | Number:Time | thursday#duration |
+| edgecut  | Switch      | thursday#edgecut  |
 
 
 ##### thursday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName        |
-|----------|---------------|--------------------|
-| enable   | `Switch`      | thursday2#enable   |
-| time     | `DateTime`    | thursday2#time     |
-| duration | `Number:Time` | thursday2#duration |
-| edgecut  | `Switch`      | thursday2#edgecut  |
+| Channel  | Type        | ChannelName        |
+|----------|-------------|--------------------|
+| enable   | Switch      | thursday2#enable   |
+| time     | DateTime    | thursday2#time     |
+| duration | Number:Time | thursday2#duration |
+| edgecut  | Switch      | thursday2#edgecut  |
 
 
 ##### friday (Slot 1)
 
-| Channel  | Type          | ChannelName     |
-|----------|---------------|-----------------|
-| enable   | `Switch`      | friday#enable   |
-| time     | `DateTime`    | friday#time     |
-| duration | `Number:Time` | friday#duration |
-| edgecut  | `Switch`      | friday#edgecut  |
+| Channel  | Type        | ChannelName     |
+|----------|-------------|-----------------|
+| enable   | Switch      | friday#enable   |
+| time     | DateTime    | friday#time     |
+| duration | Number:Time | friday#duration |
+| edgecut  | Switch      | friday#edgecut  |
 
 
 ##### friday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName      |
-|----------|---------------|------------------|
-| enable   | `Switch`      | friday2#enable   |
-| time     | `DateTime`    | friday2#time     |
-| duration | `Number:Time` | friday2#duration |
-| edgecut  | `Switch`      | friday2#edgecut  |
+| Channel  | Type        | ChannelName      |
+|----------|-------------|------------------|
+| enable   | Switch      | friday2#enable   |
+| time     | DateTime    | friday2#time     |
+| duration | Number:Time | friday2#duration |
+| edgecut  | Switch      | friday2#edgecut  |
 
 ##### saturday (Slot 1)
 
-| Channel  | Type          | ChannelName       |
-|----------|---------------|-------------------|
-| enable   | `Switch`      | saturday#enable   |
-| time     | `DateTime`    | saturday#time     |
-| duration | `Number:Time` | saturday#duration |
-| edgecut  | `Switch`      | saturday#edgecut  |
+| Channel  | Type        | ChannelName       |
+|----------|-------------|-------------------|
+| enable   | Switch      | saturday#enable   |
+| time     | DateTime    | saturday#time     |
+| duration | Number:Time | saturday#duration |
+| edgecut  | Switch      | saturday#edgecut  |
 
 
 ##### saturday2 (Slot 2, ONLY IF SUPPORTED)
 
-| Channel  | Type          | ChannelName        |
-|----------|---------------|--------------------|
-| enable   | `Switch`      | saturday2#enable   |
-| time     | `DateTime`    | saturday2#time     |
-| duration | `Number:Time` | saturday2#duration |
-| edgecut  | `Switch`      | saturday2#edgecut  |
+| Channel  | Type        | ChannelName        |
+|----------|-------------|--------------------|
+| enable   | Switch      | saturday2#enable   |
+| time     | DateTime    | saturday2#time     |
+| duration | Number:Time | saturday2#duration |
+| edgecut  | Switch      | saturday2#edgecut  |
 
 
 ##### one-time
 
-| Channel  | Type     | ChannelName       |
-|----------|----------|-------------------|
-| edgecut  | `Switch` | one-time#edgecut  |
-| duration | `Switch` | one-time#duration |
+| Channel  | Type   | ChannelName       |
+|----------|--------|-------------------|
+| edgecut  | Switch | one-time#edgecut  |
+| duration | Switch | one-time#duration |
 
 
 ##### battery
 
-| Channel             | Type                       | ChannelName                 |
-|---------------------|----------------------------|-----------------------------|
-| temperature         | `Number:Temperature`       | battery#temperature         |
-| voltage             | `Number:ElectricPotential` | battery#voltage             |
-| level               | `Number`                   | battery#level               |
-| charge-cycles       | `Number`                   | battery#charge-cycles       |
-| charge-cycles-total | `Number`                   | battery#charge-cycles-total |
-| charging            | `Switch`                   | battery#charging            |
+| Channel             | Type                     | ChannelName                 |
+|---------------------|--------------------------|-----------------------------|
+| temperature         | Number:Temperature       | battery#temperature         |
+| voltage             | Number:ElectricPotential | battery#voltage             |
+| level               | Number                   | battery#level               |
+| charge-cycles       | Number                   | battery#charge-cycles       |
+| charge-cycles-total | Number                   | battery#charge-cycles-total |
+| charging            | Switch                   | battery#charging            |
 
 
 ##### orientation
 
-| Channel | Type           | ChannelName       |
-|---------|----------------|-------------------|
-| pitch   | `Number:Angle` | orientation#pitch |
-| roll    | `Number:Angle` | orientation#roll  |
-| yaw     | `Number:Angle` | orientation#yaw   |
+| Channel | Type         | ChannelName       |
+|---------|--------------|-------------------|
+| pitch   | Number:Angle | orientation#pitch |
+| roll    | Number:Angle | orientation#roll  |
+| yaw     | Number:Angle | orientation#yaw   |
 
 
 ##### metrics
 
-| Channel          | Type            | ChannelName              |
-|------------------|-----------------|--------------------------|
-| blade-time       | `Number:Time`   | metrics#blade-time       |
-| blade-time-total | `Number:Time`   | metrics#blade-time-total |
-| distance         | `Number:Length` | metrics#distance         |
-| total-time       | `Number:Time`   | metrics#total-time       |
+| Channel          | Type          | ChannelName              |
+|------------------|---------------|--------------------------|
+| blade-time       | Number:Time   | metrics#blade-time       |
+| blade-time-total | Number:Time   | metrics#blade-time-total |
+| distance         | Number:Length | metrics#distance         |
+| total-time       | Number:Time   | metrics#total-time       |
 
 
 ##### rain (ONLY IF SUPPORTED)
 
-| Channel | Type          | ChannelName  |
-|---------|---------------|--------------|
-| state   | `Switch`      | rain#state   |
-| counter | `Number:Time` | rain#counter |
-| delay   | `Number:Time` | rain#delay   |
+| Channel | Type        | ChannelName  |
+|---------|-------------|--------------|
+| state   | Switch      | rain#state   |
+| counter | Number:Time | rain#counter |
+| delay   | Number:Time | rain#delay   |
 
 
 ##### wifi
 
-| Channel      | Type           | ChannelName       |
-|--------------|----------------|-------------------|
-| rssi         | `Number:Power` | wifi#rssi         |
-| wifi-quality | `Number`       | wifi#wifi-quality |
+| Channel      | Type         | ChannelName       |
+|--------------|--------------|-------------------|
+| rssi         | Number:Power | wifi#rssi         |
+| wifi-quality | Number       | wifi#wifi-quality |
 
 
 ## Examples
 
 
-### landroid.items
+### $OPENHAB_CONF/items/landroid.items
 
 ```
 String                     MyMower                                 "MyMower [%s]"
@@ -432,13 +432,13 @@ Number                     LandroidMowerWifiWifiQuality            "Wifi quality
 
 ```
 
-### landroid.sitemap
+### $OPENHAB_CONF/sitemaps/landroid.sitemap
 
 ```
 sitemap landroid label="Landroid"
 {
     Frame label="Worx Landroid Mower" {
-        Text label="Status" icon=none {
+        Text label="Status" item=MyMower icon=none {
         Default item=LandroidMowerCommonStatus               
         Default item=LandroidMowerCommonError                
         Default item=LandroidMowerCommonOnline               
@@ -576,7 +576,7 @@ sitemap landroid label="Landroid"
 
 ```
 
-### landroid.rules
+### $OPENHAB_CONF/rules/landroid.rules
 
 ```
 
@@ -594,7 +594,7 @@ end
 
 ```
 
-### $OH_HOME/transform/landroid_error_de.map
+### $OPENHAB_CONF/transform/landroid_error_de.map
 
 ```
 
@@ -621,7 +621,7 @@ MOWER_OUTSIDE_WIRE=mower outside wire
 
 ```
 
-### $OH_HOME/transform/landroid_status_de.map
+### $OPENHAB_CONF/transform/landroid_status_de.map
 
 ```
 
@@ -647,3 +647,8 @@ PAUSE=pause
 MANUEL_STOP=manuel stop
 
 ```
+
+
+
+
+
