@@ -616,7 +616,7 @@ REVERSE_WIRE=reverse wire
 CHARGE_ERROR=charge error
 TIMEOUT_FINDING_HOME=timeout finding home
 MOWER_LOCKED=mower locked
-BATTERY_OVER_TEMPERATURE=batter over temperature
+BATTERY_OVER_TEMPERATURE=battery over temperature
 MOWER_OUTSIDE_WIRE=mower outside wire
 
 ```
